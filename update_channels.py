@@ -2,9 +2,8 @@ import requests
 import json
 import time
 
-# ========= CONFIGURACIÓN =========
-
 API_URL = "https://search-ace.stream/search"
+
 KEYWORDS = [
     "movistar la liga",
     "liga",
@@ -33,58 +32,47 @@ KEYWORDS = [
 
 OUTPUT_FILE = "channels.json"
 
-# ========= LÓGICA =========
-
-def normalize(text: str) -> str:
-    return text.lower()
-
-def fetch_channels(keyword: str):
+def fetch(keyword: str):
     try:
-        response = requests.get(API_URL, params={"q": keyword}, timeout=15)
-        response.raise_for_status()
-        return response.json()
+        r = requests.get(API_URL, params={"q": keyword}, timeout=15)
+        r.raise_for_status()
+        return r.json()
     except Exception as e:
         print(f"[ERROR] {keyword}: {e}")
         return []
 
 def main():
-    seen_hashes = set()
+    seen = set()
     channels = []
 
-    for keyword in KEYWORDS:
-        print(f"[INFO] Buscando: {keyword}")
-        results = fetch_channels(keyword)
+    for kw in KEYWORDS:
+        print(f"[INFO] buscando: {kw}")
+        results = fetch(kw)
 
         for item in results:
-            content_id = item.get("content_id")
-            name = item.get("name", "").strip()
+            cid = item.get("content_id")
+            name = item.get("name")
 
-            if not content_id or not name:
+            if not cid or not name:
                 continue
 
-            if content_id in seen_hashes:
+            if cid in seen:
                 continue
 
-            # Filtro básico de relevancia
-            name_norm = normalize(name)
-            if not any(k in name_norm for k in ["liga", "sport", "futbol", "nba", "football"]):
-                continue
-
-            seen_hashes.add(content_id)
+            seen.add(cid)
             channels.append({
-                "name": name,
-                "hash": content_id
+                "name": name.strip(),
+                "hash": cid
             })
 
-        time.sleep(1)  # evita rate-limit
+        time.sleep(1)
 
-    # Ordenar alfabéticamente
     channels.sort(key=lambda x: x["name"].lower())
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(channels, f, indent=2, ensure_ascii=False)
 
-    print(f"[OK] Generado {OUTPUT_FILE} con {len(channels)} canales")
+    print(f"[OK] {len(channels)} canales guardados")
 
 if __name__ == "__main__":
     main()
