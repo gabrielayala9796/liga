@@ -1,99 +1,57 @@
-import json
 import requests
+import json
 import re
-from pathlib import Path
+from time import sleep
 
-# ----------------------------
-# CONFIGURACIÓN
-# ----------------------------
-
-API_URL = "https://search-ace.stream/search"
-
-RAW_KEYWORDS = [
-    "movistar la liga",
-    "liga",
-    "campeones",
-    "dazn",
-    "espn",
-    "futbol",
-    "tnt",
-    "ziggo",
-    "nba",
-    "usa",
-    "match",
-    "eleven sport",
-    "bein",
-    "setanta",
-    "sky",
-    "sky sports",
-    "bein sports",
-    "match football",
-    "tnt sports",
-    "fox sport",
-    "movistar liga de campeones",
-    "m liga",
-    "mliga"
+KEYWORDS = [
+    "movistar la liga", "liga", "campeones", "dazn", "espn", "futbol",
+    "tnt", "ziggo", "nba", "usa", "match", "eleven sport",
+    "bein", "setanta", "sky", "sky sports", "bein sports",
+    "match football", "tnt sports", "fox sport",
+    "movistar liga de campeones", "m liga", "mliga"
 ]
 
-OUTPUT_FILE = Path("channels.json")
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept": "*/*",
+    "Referer": "https://search-ace.stream/"
+}
 
-# ----------------------------
-# UTILIDADES
-# ----------------------------
+RESULTS = {}
 
-def normalize(text: str) -> str:
-    text = text.lower()
-    text = re.sub(r'[^a-z0-9 ]', ' ', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
+def extract_hash(text):
+    """
+    Extrae hash AceStream hexadecimal (40 chars)
+    """
+    match = re.search(r"\b[a-f0-9]{40}\b", text, re.IGNORECASE)
+    return match.group(0) if match else None
 
-KEYWORDS = [normalize(k) for k in RAW_KEYWORDS]
 
-# ----------------------------
-# LÓGICA PRINCIPAL
-# ----------------------------
+for keyword in KEYWORDS:
+    print(f"Searching: {keyword}")
+    try:
+        url = "https://search-ace.stream/suggestions"
+        r = requests.get(url, params={"q": keyword}, headers=HEADERS, timeout=10)
+        r.raise_for_status()
 
-def fetch_channels(query: str):
-    response = requests.get(API_URL, params={"q": query}, timeout=15)
-    response.raise_for_status()
-    return response.json()
+        suggestions = r.json()
 
-def main():
-    collected = {}
-    
-    for keyword in RAW_KEYWORDS:
-        print(f"Searching: {keyword}")
-        try:
-            results = fetch_channels(keyword)
-        except Exception as e:
-            print(f"Error fetching '{keyword}': {e}")
-            continue
+        for item in suggestions:
+            hash_id = extract_hash(item)
+            if hash_id and item not in RESULTS:
+                RESULTS[item] = hash_id
 
-        for channel in results:
-            name = channel.get("name", "")
-            cid = channel.get("content_id")
+        sleep(1)  # evita rate limit
 
-            if not name or not cid:
-                continue
+    except Exception as e:
+        print(f"Error fetching '{keyword}': {e}")
 
-            normalized_name = normalize(name)
+channels = [
+    {"name": name, "hash": hash_id}
+    for name, hash_id in RESULTS.items()
+]
 
-            if any(k in normalized_name for k in KEYWORDS):
-                collected[cid] = {
-                    "name": name,
-                    "content_id": cid,
-                    "pid": channel.get("pid")
-                }
-                print(f"  MATCH: {name}")
+with open("channels.json", "w", encoding="utf-8") as f:
+    json.dump(channels, f, indent=2, ensure_ascii=False)
 
-    final_list = sorted(collected.values(), key=lambda x: x["name"].lower())
-
-    OUTPUT_FILE.write_text(
-        json.dumps(final_list, indent=2, ensure_ascii=False),
-        encoding="utf-8"
-    )
-
-    print(f"\nSaved {len(final_list)} channels to {OUTPUT_FILE}")
-
-if __name__ == "__main__":
-    main()
+print(f"Saved {len(channels)} channels to channels.json")
