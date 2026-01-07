@@ -1,10 +1,15 @@
-import requests
 import json
-import time
+import requests
+import re
+from pathlib import Path
+
+# ----------------------------
+# CONFIGURACIÓN
+# ----------------------------
 
 API_URL = "https://search-ace.stream/search"
 
-KEYWORDS = [
+RAW_KEYWORDS = [
     "movistar la liga",
     "liga",
     "campeones",
@@ -26,53 +31,69 @@ KEYWORDS = [
     "tnt sports",
     "fox sport",
     "movistar liga de campeones",
-    "m. liga",
-    "m.liga"
+    "m liga",
+    "mliga"
 ]
 
-OUTPUT_FILE = "channels.json"
+OUTPUT_FILE = Path("channels.json")
 
-def fetch(keyword: str):
-    try:
-        r = requests.get(API_URL, params={"q": keyword}, timeout=15)
-        r.raise_for_status()
-        return r.json()
-    except Exception as e:
-        print(f"[ERROR] {keyword}: {e}")
-        return []
+# ----------------------------
+# UTILIDADES
+# ----------------------------
+
+def normalize(text: str) -> str:
+    text = text.lower()
+    text = re.sub(r'[^a-z0-9 ]', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+KEYWORDS = [normalize(k) for k in RAW_KEYWORDS]
+
+# ----------------------------
+# LÓGICA PRINCIPAL
+# ----------------------------
+
+def fetch_channels(query: str):
+    response = requests.get(API_URL, params={"q": query}, timeout=15)
+    response.raise_for_status()
+    return response.json()
 
 def main():
-    seen = set()
-    channels = []
+    collected = {}
+    
+    for keyword in RAW_KEYWORDS:
+        print(f"Searching: {keyword}")
+        try:
+            results = fetch_channels(keyword)
+        except Exception as e:
+            print(f"Error fetching '{keyword}': {e}")
+            continue
 
-    for kw in KEYWORDS:
-        print(f"[INFO] buscando: {kw}")
-        results = fetch(kw)
+        for channel in results:
+            name = channel.get("name", "")
+            cid = channel.get("content_id")
 
-        for item in results:
-            cid = item.get("content_id")
-            name = item.get("name")
-
-            if not cid or not name:
+            if not name or not cid:
                 continue
 
-            if cid in seen:
-                continue
+            normalized_name = normalize(name)
 
-            seen.add(cid)
-            channels.append({
-                "name": name.strip(),
-                "hash": cid
-            })
+            if any(k in normalized_name for k in KEYWORDS):
+                collected[cid] = {
+                    "name": name,
+                    "content_id": cid,
+                    "pid": channel.get("pid")
+                }
+                print(f"  MATCH: {name}")
 
-        time.sleep(1)
+    final_list = sorted(collected.values(), key=lambda x: x["name"].lower())
 
-    channels.sort(key=lambda x: x["name"].lower())
+    OUTPUT_FILE.write_text(
+        json.dumps(final_list, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(channels, f, indent=2, ensure_ascii=False)
-
-    print(f"[OK] {len(channels)} canales guardados")
+    print(f"\nSaved {len(final_list)} channels to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     main()
