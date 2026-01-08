@@ -1,75 +1,69 @@
 import json
-import re
 import time
 from curl_cffi import requests
 
-KEYWORDS = [
-    "movistar liga",
-    "liga de campeones",
-    "champions",
-    "dazn",
-    "espn",
-    "futbol",
-    "tnt",
-    "nba",
-    "bein",
-    "sky sports",
-    "fox sport",
-    "setanta",
-    "eleven sport",
-    "match football"
-]
-
 SEARCH_URL = "https://search-ace.stream/search"
+
+QUERIES = [
+    "M+ Liga de Campeones FHD",
+    "Movistar La Liga",
+    "La Liga",
+    "Liga",
+    "Champions",
+    "DAZN",
+    "ESPN",
+    "TNT Sports",
+    "Bein Sports",
+    "Sky Sports",
+    "NBA",
+    "Football",
+]
 
 HEADERS = {
     "accept": "application/json",
-    "referer": "https://search-ace.stream/",
+    "accept-language": "es,en-US;q=0.9",
+    "cache-control": "no-cache",
+    "pragma": "no-cache",
 }
 
-def is_interesting(name: str) -> bool:
-    name = name.lower()
-    return any(k in name for k in KEYWORDS)
+session = requests.Session(
+    impersonate="chrome",
+    headers=HEADERS,
+)
 
-def extract_hash(text: str):
-    m = re.search(r"\b[a-f0-9]{40}\b", text, re.I)
-    return m.group(0) if m else None
+channels = []
 
-session = requests.Session(impersonate="chrome")
-
-results = {}
-
-for kw in KEYWORDS:
-    print(f"Searching: {kw}")
+for query in QUERIES:
+    print(f"Searching: {query}")
     try:
-        r = session.get(
+        response = session.get(
             SEARCH_URL,
-            params={"query": kw},
-            headers=HEADERS,
-            timeout=15
+            params={"query": query},
+            timeout=30,
         )
 
-        data = r.json()
+        if response.status_code != 200:
+            print(f"  HTTP {response.status_code}")
+            continue
 
-        for item in data:
-            name = item.get("name", "")
-            content_id = item.get("content_id")
-
-            if not name or not content_id:
-                continue
-
-            if is_interesting(name):
-                results[name] = content_id
+        data = response.json()
+        if isinstance(data, list):
+            channels.extend(data)
+            print(f"  Found {len(data)} results")
 
         time.sleep(1)
 
     except Exception as e:
-        print(f"Error with '{kw}': {e}")
+        print(f"  Error: {e}")
 
-channels = [
-    {"name": name, "hash": hash_id}
-    for name, hash_id in sorted(results.items())
-]
+# Eliminar duplicados por content_id
+unique = {}
+for ch in channels:
+    cid = ch.get("content_id")
+    if cid:
+        unique[cid] = ch
+
+channels = list(unique.values())
 
 with open("channels.json", "w", encoding="utf-8") as f:
     json.dump(channels, f, indent=2, ensure_ascii=False)
