@@ -28,7 +28,7 @@ SEARCH_TERMS = [
     "mliga",
 ]
 
-BASE_URL = "https://search-ace.stream/"
+BASE_URL = "https://search-ace.stream/search?query=Ziggo+Sport"
 
 HEADERS = {
     "User-Agent": (
