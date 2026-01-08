@@ -1,50 +1,74 @@
 from curl_cffi import requests
 import json
-import re
-from time import sleep
+import time
 
-KEYWORDS = [
-    "movistar la liga", "liga", "campeones", "dazn", "espn", "futbol",
-    "tnt", "ziggo", "nba", "usa", "match", "eleven sport",
-    "bein", "setanta", "sky", "sky sports", "bein sports",
-    "match football", "tnt sports", "fox sport",
-    "movistar liga de campeones", "m liga", "mliga"
+SEARCH_TERMS = [
+    "movistar la liga",
+    "liga",
+    "campeones",
+    "dazn",
+    "espn",
+    "futbol",
+    "tnt",
+    "ziggo",
+    "nba",
+    "usa",
+    "match",
+    "eleven sport",
+    "bein",
+    "setanta",
+    "sky",
+    "sky sports",
+    "bein sports",
+    "match football",
+    "tnt sports",
+    "fox sport",
+    "movistar liga de campeones",
+    "m liga",
+    "mliga",
 ]
 
-RESULTS = {}
+BASE_URL = "https://search-ace.stream/"
 
-def extract_hash(text):
-    match = re.search(r"\b[a-f0-9]{40}\b", text, re.IGNORECASE)
-    return match.group(0) if match else None
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/121.0.0.0 Safari/537.36"
+    ),
+    "Accept": "*/*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer": "https://www.google.com/",
+}
 
-for keyword in KEYWORDS:
-    print(f"Searching: {keyword}")
+def fetch(term: str):
     try:
-        r = requests.get(
-            "https://search-ace.stream/suggestions",
-            params={"q": keyword},
-            impersonate="chrome120",
-            timeout=15
+        resp = requests.get(
+            BASE_URL,
+            params={"q": term},
+            headers=HEADERS,
+            timeout=20,
         )
 
-        suggestions = r.json()
+        print("=" * 80)
+        print(f"SEARCH TERM: {term}")
+        print("STATUS CODE:", resp.status_code)
+        print("CONTENT-TYPE:", resp.headers.get("content-type"))
+        print("RESPONSE (first 500 chars):")
+        print(resp.text[:500])
+        print("=" * 80)
 
-        for item in suggestions:
-            hash_id = extract_hash(item)
-            if hash_id:
-                RESULTS[item] = hash_id
-
-        sleep(1)
+        time.sleep(1)
 
     except Exception as e:
-        print(f"Error fetching '{keyword}': {e}")
+        print(f"Request failed for '{term}': {e}")
 
-channels = [
-    {"name": name, "hash": hash_id}
-    for name, hash_id in RESULTS.items()
-]
+def main():
+    for term in SEARCH_TERMS:
+        fetch(term)
 
-with open("channels.json", "w", encoding="utf-8") as f:
-    json.dump(channels, f, indent=2, ensure_ascii=False)
+    # No escribimos channels.json todavía
+    print("Diagnostic run completed")
 
-print(f"Saved {len(channels)} channels")
+if __name__ == "__main__":
+    main()
