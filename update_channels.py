@@ -1,74 +1,70 @@
-from curl_cffi import requests
 import json
+import re
 import time
+from curl_cffi import requests
 
-SEARCH_TERMS = [
-    "movistar la liga",
-    "liga",
-    "campeones",
-    "dazn",
-    "espn",
-    "futbol",
-    "tnt",
-    "ziggo",
-    "nba",
-    "usa",
-    "match",
-    "eleven sport",
-    "bein",
-    "setanta",
-    "sky",
-    "sky sports",
-    "bein sports",
-    "match football",
-    "tnt sports",
-    "fox sport",
-    "movistar liga de campeones",
-    "m liga",
-    "mliga",
+KEYWORDS = [
+    "movistar la liga", "liga", "campeones", "dazn", "espn", "futbol",
+    "tnt", "ziggo", "nba", "usa", "match", "eleven sport",
+    "bein", "setanta", "sky", "sky sports", "bein sports",
+    "match football", "tnt sports", "fox sport",
+    "movistar liga de campeones", "m liga", "mliga"
 ]
 
-BASE_URL = "https://search-ace.stream/search?query=Ziggo+Sport"
+URL = "https://search-ace.stream/suggestions"
 
 HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/121.0.0.0 Safari/537.36"
-    ),
     "Accept": "*/*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Referer": "https://www.google.com/",
+    "Referer": "https://search-ace.stream/",
 }
 
-def fetch(term: str):
+HASH_REGEX = re.compile(r"\b[a-f0-9]{40}\b", re.IGNORECASE)
+
+results = {}
+
+def extract_hash(text: str):
+    match = HASH_REGEX.search(text)
+    return match.group(0) if match else None
+
+
+for keyword in KEYWORDS:
+    print(f"Searching: {keyword}")
+
     try:
-        resp = requests.get(
-            BASE_URL,
-            params={"q": term},
+        r = requests.get(
+            URL,
+            params={"q": keyword},
             headers=HEADERS,
-            timeout=20,
+            impersonate="chrome",   # CLAVE
+            timeout=15
         )
 
-        print("=" * 80)
-        print(f"SEARCH TERM: {term}")
-        print("STATUS CODE:", resp.status_code)
-        print("CONTENT-TYPE:", resp.headers.get("content-type"))
-        print("RESPONSE (first 500 chars):")
-        print(resp.text[:500])
-        print("=" * 80)
+        if r.status_code != 200:
+            print(f"  HTTP {r.status_code}")
+            continue
 
-        time.sleep(1)
+        data = r.json()
+
+        for item in data:
+            h = extract_hash(item)
+            if h and item not in results:
+                results[item] = h
+
+        time.sleep(1)  # evita rate-limit
 
     except Exception as e:
-        print(f"Request failed for '{term}': {e}")
+        print(f"  Error: {e}")
 
-def main():
-    for term in SEARCH_TERMS:
-        fetch(term)
 
-    # No escribimos channels.json todavía
-    print("Diagnostic run completed")
+channels = [
+    {
+        "name": name,
+        "url": f"acestream://{hash_id}"
+    }
+    for name, hash_id in results.items()
+]
 
-if __name__ == "__main__":
-    main()
+with open("channels.json", "w", encoding="utf-8") as f:
+    json.dump(channels, f, indent=2, ensure_ascii=False)
+
+print(f"Saved {len(channels)} channels")
