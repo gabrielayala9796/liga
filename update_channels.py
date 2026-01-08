@@ -1,41 +1,41 @@
 import json
-import re
 import time
 from curl_cffi import requests
 
 KEYWORDS = [
-    "movistar la liga", "liga", "campeones", "dazn", "espn", "futbol",
-    "tnt", "ziggo", "nba", "usa", "match", "eleven sport",
-    "bein", "setanta", "sky", "sky sports", "bein sports",
-    "match football", "tnt sports", "fox sport",
-    "movistar liga de campeones", "m liga", "mliga"
+    "M+ Liga de Campeones FHD",
+    "Movistar La Liga",
+    "La Liga",
+    "Liga",
+    "Champions",
+    "DAZN",
+    "ESPN",
+    "TNT Sports",
+    "Bein Sports",
+    "Sky Sports",
+    "NBA",
+    "Football"
 ]
 
-URL = "https://search-ace.stream/suggestions"
+URL = "https://search-ace.stream/search"
 
 HEADERS = {
-    "Accept": "*/*",
-    "Referer": "https://search-ace.stream/",
+    "Accept": "application/json",
+    "Referer": "https://search-ace.stream/"
 }
 
-HASH_REGEX = re.compile(r"\b[a-f0-9]{40}\b", re.IGNORECASE)
-
-results = {}
-
-def extract_hash(text: str):
-    match = HASH_REGEX.search(text)
-    return match.group(0) if match else None
-
+channels = {}
+session = requests.Session()
 
 for keyword in KEYWORDS:
     print(f"Searching: {keyword}")
 
     try:
-        r = requests.get(
+        r = session.get(
             URL,
-            params={"q": keyword},
+            params={"query": keyword},
             headers=HEADERS,
-            impersonate="chrome",   # CLAVE
+            impersonate="chrome",
             timeout=15
         )
 
@@ -45,26 +45,28 @@ for keyword in KEYWORDS:
 
         data = r.json()
 
-        for item in data:
-            h = extract_hash(item)
-            if h and item not in results:
-                results[item] = h
+        if not isinstance(data, list):
+            print("  Unexpected response")
+            continue
 
-        time.sleep(1)  # evita rate-limit
+        for item in data:
+            cid = item.get("content_id")
+            name = item.get("name")
+
+            if cid and name and cid not in channels:
+                channels[cid] = {
+                    "name": name,
+                    "url": f"acestream://{cid}"
+                }
+
+        time.sleep(1)
 
     except Exception as e:
         print(f"  Error: {e}")
 
-
-channels = [
-    {
-        "name": name,
-        "url": f"acestream://{hash_id}"
-    }
-    for name, hash_id in results.items()
-]
+output = list(channels.values())
 
 with open("channels.json", "w", encoding="utf-8") as f:
-    json.dump(channels, f, indent=2, ensure_ascii=False)
+    json.dump(output, f, indent=2, ensure_ascii=False)
 
-print(f"Saved {len(channels)} channels")
+print(f"Saved {len(output)} channels")
