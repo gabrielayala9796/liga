@@ -1,4 +1,4 @@
-import requests
+from curl_cffi import requests
 import json
 import re
 from time import sleep
@@ -11,37 +11,30 @@ KEYWORDS = [
     "movistar liga de campeones", "m liga", "mliga"
 ]
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-    "Accept": "*/*",
-    "Referer": "https://search-ace.stream/"
-}
-
 RESULTS = {}
 
 def extract_hash(text):
-    """
-    Extrae hash AceStream hexadecimal (40 chars)
-    """
     match = re.search(r"\b[a-f0-9]{40}\b", text, re.IGNORECASE)
     return match.group(0) if match else None
-
 
 for keyword in KEYWORDS:
     print(f"Searching: {keyword}")
     try:
-        url = "https://search-ace.stream/suggestions"
-        r = requests.get(url, params={"q": keyword}, headers=HEADERS, timeout=10)
-        r.raise_for_status()
+        r = requests.get(
+            "https://search-ace.stream/suggestions",
+            params={"q": keyword},
+            impersonate="chrome120",
+            timeout=15
+        )
 
         suggestions = r.json()
 
         for item in suggestions:
             hash_id = extract_hash(item)
-            if hash_id and item not in RESULTS:
+            if hash_id:
                 RESULTS[item] = hash_id
 
-        sleep(1)  # evita rate limit
+        sleep(1)
 
     except Exception as e:
         print(f"Error fetching '{keyword}': {e}")
@@ -54,4 +47,4 @@ channels = [
 with open("channels.json", "w", encoding="utf-8") as f:
     json.dump(channels, f, indent=2, ensure_ascii=False)
 
-print(f"Saved {len(channels)} channels to channels.json")
+print(f"Saved {len(channels)} channels")
