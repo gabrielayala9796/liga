@@ -23,8 +23,9 @@ jobs:
       - name: Install dependencies
         run: pip install curl_cffi
 
-      - name: Run channel updater
-        run: python update_channels.py
+      - name: Run update
+        run: python scripts/update_channels.py
+
 
       - name: Commit and push changes
         run: |
