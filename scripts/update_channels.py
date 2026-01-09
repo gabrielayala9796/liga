@@ -1,49 +1,70 @@
-from playwright.sync_api import sync_playwright
 import json
-import re
 import time
+from curl_cffi import requests
 
-KEYWORDS = [
+BASE_URL = "https://search-ace.stream/search"
+
+QUERIES = [
     "M+ Liga de Campeones FHD",
     "Movistar La Liga",
     "La Liga",
     "Champions",
     "DAZN",
-    "ESPN"
+    "ESPN",
+    "TNT Sports",
+    "Bein Sports",
+    "Sky Sports",
+    "NBA",
+    "Football"
 ]
 
-def extract_hash(text):
-    match = re.search(r"\b[a-f0-9]{40}\b", text, re.I)
-    return match.group(0) if match else None
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/122.0.0.0 Safari/537.36"
+    ),
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer": "https://search-ace.stream/",
+}
 
-results = {}
+session = requests.Session(impersonate="chrome")
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    page = browser.new_page()
+channels = {}
 
-    page.goto("https://search-ace.stream", timeout=60000)
-    page.wait_for_timeout(8000)  # Cloudflare
+for query in QUERIES:
+    print(f"Searching: {query}")
 
-    for keyword in KEYWORDS:
-        print(f"Searching: {keyword}")
+    try:
+        r = session.get(
+            BASE_URL,
+            params={"query": query},
+            headers=HEADERS,
+            timeout=20
+        )
 
-        page.fill("input[type='search']", "")
-        page.fill("input[type='search']", keyword)
-        page.keyboard.press("Enter")
+        if r.status_code != 200:
+            print(f"  HTTP {r.status_code}")
+            continue
 
-        page.wait_for_timeout(3000)
+        data = r.json()
 
-        items = page.locator(".list-group-item").all_text_contents()
+        if not isinstance(data, list):
+            print("  Unexpected response format")
+            continue
 
-        for item in items:
-            h = extract_hash(item)
-            if h:
-                results[item] = h
+        for item in data:
+            name = item.get("name")
+            content_id = item.get("content_id")
 
-    browser.close()
+            if name and content_id:
+                channels[name] = content_id
 
-channels = [{"name": k, "hash": v} for k, v in results.items()]
+        time.sleep(1)
+
+    except Exception as e:
+        print(f"  Error: {e}")
 
 with open("channels.json", "w", encoding="utf-8") as f:
     json.dump(channels, f, indent=2, ensure_ascii=False)
