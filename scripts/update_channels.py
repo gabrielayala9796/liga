@@ -1,59 +1,51 @@
+from playwright.sync_api import sync_playwright
 import json
-import os
+import re
 import time
-from curl_cffi import requests
 
-SEARCH_TERMS = [
+KEYWORDS = [
     "M+ Liga de Campeones FHD",
     "Movistar La Liga",
     "La Liga",
-    "Liga",
     "Champions",
     "DAZN",
-    "ESPN",
-    "TNT Sports",
-    "Bein Sports",
-    "Sky Sports",
-    "NBA",
-    "Football",
+    "ESPN"
 ]
 
-BASE_URL = "https://search-ace.stream/search"
+def extract_hash(text):
+    match = re.search(r"\b[a-f0-9]{40}\b", text, re.I)
+    return match.group(0) if match else None
 
-session = requests.Session(
-    impersonate="chrome120",
-)
+results = {}
 
-headers = {
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
-    "Referer": "https://search-ace.stream/",
-    "Origin": "https://search-ace.stream",
-    "Cookie": os.environ.get("CF_COOKIES", ""),
-}
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page()
 
-results = []
+    page.goto("https://search-ace.stream", timeout=60000)
+    page.wait_for_timeout(8000)  # Cloudflare
 
-for term in SEARCH_TERMS:
-    print(f"Searching: {term}")
+    for keyword in KEYWORDS:
+        print(f"Searching: {keyword}")
 
-    r = session.get(
-        BASE_URL,
-        params={"query": term},
-        headers=headers,
-        timeout=20,
-    )
+        page.fill("input[type='search']", "")
+        page.fill("input[type='search']", keyword)
+        page.keyboard.press("Enter")
 
-    print(f"  HTTP {r.status_code}")
+        page.wait_for_timeout(3000)
 
-    if r.status_code == 200:
-        results.extend(r.json())
+        items = page.locator(".list-group-item").all_text_contents()
 
-    time.sleep(1.5)
+        for item in items:
+            h = extract_hash(item)
+            if h:
+                results[item] = h
 
-unique = {item["content_id"]: item for item in results}
+    browser.close()
+
+channels = [{"name": k, "hash": v} for k, v in results.items()]
 
 with open("channels.json", "w", encoding="utf-8") as f:
-    json.dump(list(unique.values()), f, indent=2, ensure_ascii=False)
+    json.dump(channels, f, indent=2, ensure_ascii=False)
 
-print(f"Saved {len(unique)} channels")
+print(f"Saved {len(channels)} channels")
