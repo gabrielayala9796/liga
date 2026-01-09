@@ -7,16 +7,22 @@ on:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, windows, x64]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug runner (verificación)
+        run: |
+          echo OS=%OS%
+          whoami
+          hostname
+
       - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+        run: |
+          python --version
+          pip --version
 
       - name: Install dependencies
         run: |
@@ -24,11 +30,13 @@ jobs:
           pip install curl_cffi
 
       - name: Run updater
-        run: python scripts/update_channels.py
+        run: |
+          python scripts/update_channels.py
 
       - name: Commit and push if changed
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          git status
+          if not git diff --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add channels.json
