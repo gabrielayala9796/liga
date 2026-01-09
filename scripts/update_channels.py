@@ -1,4 +1,5 @@
 import json
+import os
 import time
 from curl_cffi import requests
 
@@ -20,14 +21,15 @@ SEARCH_TERMS = [
 BASE_URL = "https://search-ace.stream/search"
 
 session = requests.Session(
-    impersonate="chrome120",  # clave absoluta
+    impersonate="chrome120",
 )
 
-HEADERS = {
+headers = {
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
     "Referer": "https://search-ace.stream/",
     "Origin": "https://search-ace.stream",
+    "Cookie": os.environ.get("CF_COOKIES", ""),
 }
 
 results = []
@@ -35,35 +37,23 @@ results = []
 for term in SEARCH_TERMS:
     print(f"Searching: {term}")
 
-    try:
-        r = session.get(
-            BASE_URL,
-            params={"query": term},
-            headers=HEADERS,
-            timeout=20,
-        )
+    r = session.get(
+        BASE_URL,
+        params={"query": term},
+        headers=headers,
+        timeout=20,
+    )
 
-        print(f"  HTTP {r.status_code}")
+    print(f"  HTTP {r.status_code}")
 
-        if r.status_code != 200:
-            continue
+    if r.status_code == 200:
+        results.extend(r.json())
 
-        data = r.json()
-        results.extend(data)
+    time.sleep(1.5)
 
-        time.sleep(1.2)  # comportamiento humano
-
-    except Exception as e:
-        print(f"  Error: {e}")
-
-# eliminar duplicados por content_id
-unique = {}
-for item in results:
-    unique[item["content_id"]] = item
-
-channels = list(unique.values())
+unique = {item["content_id"]: item for item in results}
 
 with open("channels.json", "w", encoding="utf-8") as f:
-    json.dump(channels, f, indent=2, ensure_ascii=False)
+    json.dump(list(unique.values()), f, indent=2, ensure_ascii=False)
 
-print(f"Saved {len(channels)} channels")
+print(f"Saved {len(unique)} channels")
