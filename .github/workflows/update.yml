@@ -24,7 +24,10 @@ jobs:
         run: pip install curl_cffi
 
       - name: Run update
-        run: python scripts/update_channels.py
+  env:
+    CF_COOKIES: ${{ secrets.CF_COOKIES }}
+  run: python scripts/update_channels.py
+
 
 
       - name: Commit and push changes
