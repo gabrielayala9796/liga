@@ -13,10 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Verify Python
+        run: |
+          python --version
+          pip --version
 
       - name: Upgrade pip
         run: |
@@ -33,7 +33,6 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git status
           $changes = git status --porcelain
           if ($changes) {
             git config user.name "github-actions[bot]"
