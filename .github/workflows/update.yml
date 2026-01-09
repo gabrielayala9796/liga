@@ -1,4 +1,3 @@
-
 name: Update Channels
 
 on:
@@ -8,30 +7,50 @@ on:
 
 jobs:
   update:
-    runs-on: [self-hosted, windows, x64, local]
+    runs-on: self-hosted
+
+    defaults:
+      run:
+        shell: powershell
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          clean: true
+
+      - name: Verify working directory
+        run: |
+          Write-Output "Current directory:"
+          Get-Location
+          Write-Output "Repository contents:"
+          Get-ChildItem -Recurse
 
       - name: Verify Python
-        run: python --version
+        run: |
+          python --version
+          python -c "import sys; print(sys.executable)"
 
       - name: Upgrade pip
-        run: python -m pip install --upgrade pip
+        run: |
+          python -m pip install --upgrade pip
 
       - name: Install dependencies
-        run: pip install curl_cffi
+        run: |
+          python -m pip install curl_cffi
 
-      - name: Run update
-  env:
-    CF_COOKIES: ${{ secrets.CF_COOKIES }}
-  run: python scripts/update_channels.py
-
-
+      - name: Run channel updater
+        run: |
+          if (!(Test-Path "scripts/update_channels.py")) {
+            Write-Error "scripts/update_channels.py not found"
+            exit 1
+          }
+          python scripts/update_channels.py
 
       - name: Commit and push changes
         run: |
+          git status --porcelain
           if (git status --porcelain) {
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
