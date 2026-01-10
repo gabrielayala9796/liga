@@ -1,16 +1,8 @@
 import json
-import re
-from pathlib import Path
-from curl_cffi import requests
+import time
+from seleniumbase import SB
 
-# =========================
-# CONFIGURACIÓN
-# =========================
-
-BASE_URL = "https://search-ace.stream/search"
-OUTPUT_FILE = Path("channels.json")
-
-CHANNEL_QUERIES = [
+CHANNELS = [
     "M+ Liga de Campeones FHD",
     "Movistar La Liga",
     "La Liga",
@@ -24,100 +16,59 @@ CHANNEL_QUERIES = [
     "Football",
 ]
 
-HEADERS = {
-    "accept": "application/json, text/plain, */*",
-    "referer": "https://search-ace.stream/",
-    "user-agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/143.0.0.0 Safari/537.36"
-    ),
-    "sec-ch-ua": '"Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"',
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": '"Windows"',
-    "sec-ch-ua-arch": '"x86"',
-    "sec-ch-ua-bitness": '"64"',
-}
-
-ACE_HASH_REGEX = re.compile(r"(?:acestream://)?([a-fA-F0-9]{40})")
-
-# =========================
-# FUNCIONES
-# =========================
-
-def search_channel(query: str) -> list[dict]:
-    print(f"Searching: {query}")
-
-    r = requests.get(
-        BASE_URL,
-        params={"query": query},
-        headers=HEADERS,
-        impersonate="chrome",
-        timeout=30,
-    )
-
-    if r.status_code != 200:
-        print(f"  HTTP {r.status_code}")
-        return []
-
-    try:
-        data = r.json()
-    except Exception as e:
-        print(f"  JSON error: {e}")
-        return []
-
-    return data.get("results", [])
+BASE_URL = "https://search-ace.stream/search?query="
 
 
-def extract_acestream(entry: dict) -> str | None:
-    for value in entry.values():
-        if not isinstance(value, str):
+def extract_results(sb, query):
+    results = []
+
+    sb.open(BASE_URL + sb.url_encode(query))
+
+    # Esperar Cloudflare + carga real
+    sb.wait_for_ready_state_complete()
+    time.sleep(5)
+
+    # Cada resultado es un bloque con hash Acestream
+    cards = sb.find_elements("div.card")
+
+    for card in cards:
+        try:
+            title = card.find_element("css selector", ".card-title").text.strip()
+            link = card.find_element("css selector", "a").get_attribute("href")
+
+            if "acestream://" in link:
+                acestream_hash = link.replace("acestream://", "")
+                results.append({
+                    "query": query,
+                    "title": title,
+                    "hash": acestream_hash
+                })
+        except Exception:
             continue
-        match = ACE_HASH_REGEX.search(value)
-        if match:
-            return match.group(1)
-    return None
 
+    return results
 
-# =========================
-# MAIN
-# =========================
 
 def main():
-    channels = []
+    all_results = []
 
-    for query in CHANNEL_QUERIES:
-        results = search_channel(query)
+    with SB(uc=True, headed=True, locale="es") as sb:
+        sb.open("https://search-ace.stream")
+        sb.sleep(5)  # Cloudflare initial check
 
-        if not results:
-            continue
+        for channel in CHANNELS:
+            print(f"Searching: {channel}")
+            found = extract_results(sb, channel)
+            all_results.extend(found)
 
-        for item in results:
-            name = item.get("name") or item.get("title") or query
-            ace_hash = extract_acestream(item)
-
-            if not ace_hash:
-                continue
-
-            channels.append({
-                "name": name.strip(),
-                "acestream": ace_hash.lower(),
-            })
-
-    if not channels:
+    if not all_results:
         print("No channels found")
         return
 
-    # Eliminar duplicados por hash
-    unique = {c["acestream"]: c for c in channels}
-    final_channels = list(unique.values())
+    with open("channels.json", "w", encoding="utf-8") as f:
+        json.dump(all_results, f, indent=2, ensure_ascii=False)
 
-    OUTPUT_FILE.write_text(
-        json.dumps(final_channels, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    print(f"channels.json updated successfully ({len(final_channels)} channels)")
+    print(f"Saved {len(all_results)} channels")
 
 
 if __name__ == "__main__":
