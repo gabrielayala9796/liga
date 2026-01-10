@@ -2,39 +2,24 @@ name: Update channels
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 */6 * * *"
 
 jobs:
   update:
-    runs-on: self-hosted
+    runs-on: [self-hosted, windows, x64]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Verify Python
-        run: |
-          python --version
-          pip --version
-
-      - name: Upgrade pip
-        run: |
-          python -m pip install --upgrade pip
-
-      - name: Install dependencies
-        run: |
-          pip install curl_cffi playwright
-          python -m playwright install chromium
+      - uses: actions/checkout@v4
 
       - name: Run updater
+        shell: powershell
         run: |
-          python scripts/update_channels.py
+          python scripts\update_channels.py
 
       - name: Commit and push if changed
+        shell: powershell
         run: |
-          $changes = git status --porcelain
-          if ($changes) {
+          git status
+          if (-not (git diff --quiet)) {
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add channels.json
