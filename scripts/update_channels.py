@@ -1,72 +1,38 @@
+from playwright.sync_api import sync_playwright
 import json
 import time
-from curl_cffi import requests
 
-BASE_URL = "https://search-ace.stream/search"
+SEARCH_URL = "https://search-ace.stream"
 
-QUERIES = [
-    "M+ Liga de Campeones FHD",
-    "Movistar La Liga",
-    "La Liga",
-    "Champions",
-    "DAZN",
-    "ESPN",
-    "TNT Sports",
-    "Bein Sports",
-    "Sky Sports",
-    "NBA",
-    "Football"
-]
+QUERY = "M+ Liga de Campeones FHD"
 
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/122.0.0.0 Safari/537.36"
-    ),
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Referer": "https://search-ace.stream/",
-}
+with sync_playwright() as p:
+    print("Connecting to real Chrome via CDP...")
 
-session = requests.Session(impersonate="chrome")
+    browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
 
-channels = {}
+    context = browser.contexts[0]
+    page = context.pages[0] if context.pages else context.new_page()
 
-for query in QUERIES:
-    print(f"Searching: {query}")
+    print("Navigating...")
+    page.goto(SEARCH_URL, wait_until="networkidle")
+    time.sleep(5)
 
-    try:
-        r = session.get(
-            BASE_URL,
-            params={"query": query},
-            headers=HEADERS,
-            timeout=20
-        )
+    # Espera explícita y segura
+    page.wait_for_selector("input", timeout=60000)
 
-        if r.status_code != 200:
-            print(f"  HTTP {r.status_code}")
-            continue
+    print(f"Searching: {QUERY}")
+    page.fill("input", QUERY)
+    page.keyboard.press("Enter")
 
-        data = r.json()
+    time.sleep(8)
 
-        if not isinstance(data, list):
-            print("  Unexpected response format")
-            continue
+    # Captura resultados (ejemplo)
+    results = page.locator("a").all_inner_texts()
 
-        for item in data:
-            name = item.get("name")
-            content_id = item.get("content_id")
+    print("Results found:", len(results))
 
-            if name and content_id:
-                channels[name] = content_id
+    with open("channels.json", "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
 
-        time.sleep(1)
-
-    except Exception as e:
-        print(f"  Error: {e}")
-
-with open("channels.json", "w", encoding="utf-8") as f:
-    json.dump(channels, f, indent=2, ensure_ascii=False)
-
-print(f"Saved {len(channels)} channels")
+    print("channels.json updated successfully")
