@@ -1,17 +1,9 @@
+from playwright.sync_api import sync_playwright
 import json
 import time
-import urllib.parse
-from pathlib import Path
-from curl_cffi import requests
+from urllib.parse import quote_plus
 
-# =========================
-# CONFIG
-# =========================
-
-BASE_URL = "https://search-ace.stream/search?query="
-OUTPUT_FILE = Path("channels.json")
-
-CHANNEL_QUERIES = [
+CHANNELS = [
     "M+ Liga de Campeones FHD",
     "Movistar La Liga",
     "La Liga",
@@ -25,78 +17,37 @@ CHANNEL_QUERIES = [
     "Football"
 ]
 
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/122.0.0.0 Safari/537.36"
-    ),
-    "Accept": "application/json, text/plain, */*",
-    "Referer": "https://search-ace.stream/",
-}
+RESULTS = []
 
-# =========================
-# LOGIC
-# =========================
+with sync_playwright() as p:
+    browser = p.chromium.connect_over_cdp("http://localhost:9222")
+    context = browser.contexts[0]
+    page = context.pages[0]
 
-def fetch_channels(query: str):
-    encoded = urllib.parse.quote_plus(query)
-    url = BASE_URL + encoded
+    for channel in CHANNELS:
+        print(f"Searching: {channel}")
+        url = f"https://search-ace.stream/search?query={quote_plus(channel)}"
+        page.goto(url, timeout=60000)
+        time.sleep(3)
 
-    print(f"Searching: {query}")
+        links = page.locator("a[href^='acestream://']").all()
 
-    resp = requests.get(
-        url,
-        headers=HEADERS,
-        impersonate="chrome"
-    )
-
-    if resp.status_code != 200:
-        print(f"  HTTP {resp.status_code}")
-        return []
-
-    try:
-        data = resp.json()
-    except Exception:
-        print("  Invalid JSON response")
-        return []
-
-    results = []
-
-    for item in data:
-        acestream_id = item.get("infohash") or item.get("hash")
-        name = item.get("name") or query
-
-        if not acestream_id:
+        if not links:
+            print("  No results")
             continue
 
-        results.append({
-            "name": name.strip(),
-            "acestream": f"acestream://{acestream_id}"
-        })
+        for link in links:
+            ace = link.get_attribute("href")
+            RESULTS.append({
+                "name": channel,
+                "acestream": ace
+            })
 
-    print(f"  Results found: {len(results)}")
-    return results
+        print(f"  Found {len(links)}")
 
+    browser.close()
 
-def main():
-    all_channels = []
+with open("channels.json", "w", encoding="utf-8") as f:
+    json.dump(RESULTS, f, indent=2, ensure_ascii=False)
 
-    for query in CHANNEL_QUERIES:
-        all_channels.extend(fetch_channels(query))
-        time.sleep(1)  # pequeña pausa para no levantar sospechas
-
-    if not all_channels:
-        print("No channels found")
-        return
-
-    OUTPUT_FILE.write_text(
-        json.dumps(all_channels, indent=2, ensure_ascii=False),
-        encoding="utf-8"
-    )
-
-    print("channels.json updated successfully")
-
-
-if __name__ == "__main__":
-    main()
+print("channels.json updated")
