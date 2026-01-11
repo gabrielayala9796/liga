@@ -1,8 +1,49 @@
+import os
 import json
 import time
+import subprocess
+from pathlib import Path
 from seleniumbase import SB
 
-CHANNELS = [
+# ============================================================
+#  DETECTAR RAÍZ REAL DEL PROYECTO (A PRUEBA DE SELENIUM / CI)
+# ============================================================
+
+def get_project_root():
+    # 1) GitHub Actions
+    github_workspace = os.environ.get("GITHUB_WORKSPACE")
+    if github_workspace:
+        return Path(github_workspace).resolve()
+
+    # 2) Local PC usando git
+    try:
+        result = subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"],
+            stderr=subprocess.DEVNULL,
+            text=True
+        ).strip()
+        return Path(result).resolve()
+    except Exception:
+        pass
+
+    # 3) Fallback final (nunca debería usarse)
+    return Path(__file__).resolve().parents[1]
+
+
+PROJECT_ROOT = get_project_root()
+OUTPUT_FILE = PROJECT_ROOT / "channels.json"
+
+print(f"[INFO] Project root detected as: {PROJECT_ROOT}")
+print(f"[INFO] channels.json will be written to: {OUTPUT_FILE}")
+
+# ============================================================
+#  CONFIGURACIÓN
+# ============================================================
+
+BASE_URL = "https://search-ace.stream"
+SEARCH_URL = "https://search-ace.stream/search?query={}"
+
+CHANNEL_QUERIES = [
     "M+ Liga de Campeones FHD",
     "Movistar La Liga",
     "La Liga",
@@ -10,66 +51,92 @@ CHANNELS = [
     "DAZN",
     "ESPN",
     "TNT Sports",
+    "TNT",
     "Bein Sports",
     "Sky Sports",
     "NBA",
     "Football",
 ]
 
-BASE_URL = "https://search-ace.stream/search?query="
+# ============================================================
+#  ESPERA INTELIGENTE (CLOUDFLARE)
+# ============================================================
 
+def wait_for_site_ready(sb, timeout=60):
+    print("Waiting for full page load...")
+    sb.wait_for_ready_state_complete(timeout=timeout)
 
-def extract_results(sb, query):
-    results = []
+    print("Waiting extra time for Cloudflare challenge to fully settle...")
+    time.sleep(8)
 
-    sb.open(BASE_URL + sb.url_encode(query))
+    sb.execute_script("return document.body")
+    print("Site ready. JS execution confirmed.")
 
-    # Esperar Cloudflare + carga real
-    sb.wait_for_ready_state_complete()
-    time.sleep(5)
+# ============================================================
+#  FETCH SEARCH RESULTS
+# ============================================================
 
-    # Cada resultado es un bloque con hash Acestream
-    cards = sb.find_elements("div.card")
+def fetch_search_results(sb, query):
+    url = SEARCH_URL.format(sb.url_encode(query))
 
-    for card in cards:
-        try:
-            title = card.find_element("css selector", ".card-title").text.strip()
-            link = card.find_element("css selector", "a").get_attribute("href")
+    script = """
+    const callback = arguments[arguments.length - 1];
+    fetch(arguments[0])
+        .then(resp => resp.json())
+        .then(data => callback(data))
+        .catch(err => callback([]));
+    """
 
-            if "acestream://" in link:
-                acestream_hash = link.replace("acestream://", "")
-                results.append({
-                    "query": query,
-                    "title": title,
-                    "hash": acestream_hash
-                })
-        except Exception:
-            continue
+    return sb.execute_async_script(script, url)
 
-    return results
-
+# ============================================================
+#  MAIN
+# ============================================================
 
 def main():
     all_results = []
 
-    with SB(uc=True, headed=True, locale="es") as sb:
-        sb.open("https://search-ace.stream")
-        sb.sleep(5)  # Cloudflare initial check
+    with SB(
+        uc=True,
+        headless=True,
+        disable_js=False,
+        window_size="1920,1080"
+    ) as sb:
 
-        for channel in CHANNELS:
-            print(f"Searching: {channel}")
-            found = extract_results(sb, channel)
-            all_results.extend(found)
+        print("Opening base URL...")
+        sb.open(BASE_URL)
 
-    if not all_results:
-        print("No channels found")
-        return
+        wait_for_site_ready(sb)
 
-    with open("channels.json", "w", encoding="utf-8") as f:
+        for query in CHANNEL_QUERIES:
+            print(f"Searching: {query}")
+            results = fetch_search_results(sb, query)
+
+            if not results:
+                print("  No results")
+                continue
+
+            print(f"  Found: {len(results)}")
+
+            for item in results:
+                all_results.append({
+                    "query": query,
+                    "name": item.get("name"),
+                    "translated_name": item.get("translated_name"),
+                    "content_id": item.get("content_id"),
+                    "pid": item.get("pid"),
+                })
+
+    # ========================================================
+    #  GUARDAR SIEMPRE EN LA RAÍZ
+    # ========================================================
+
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
 
-    print(f"Saved {len(all_results)} channels")
+    print(f"Saved {len(all_results)} channels to {OUTPUT_FILE}")
 
+# ============================================================
 
 if __name__ == "__main__":
     main()
