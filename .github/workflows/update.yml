@@ -1,40 +1,46 @@
-name: Update channels
+name: Update Channels
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */6 * * *"   # cada 6 horas (ajústalo luego)
 
 jobs:
   update:
-    runs-on: [self-hosted, windows, x64]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify Python
-        run: |
-          python --version
-          pip --version
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Install dependencies (if needed)
+      - name: Install system dependencies
         run: |
-          pip install seleniumbase
+          sudo apt-get update
+          sudo apt-get install -y xvfb wget unzip
 
-      - name: Run updater (headless)
+      - name: Install Google Chrome
         run: |
-          python scripts/update_channels_headless.py
+          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-      - name: Commit and push if changed
+      - name: Install Python dependencies
         run: |
-          git status
-          if (git status --porcelain) {
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add channels.json
-            git commit -m "Auto-update channels.json"
-            git push
-          } else {
-            echo "No changes to commit"
-          }
+          python -m pip install --upgrade pip
+          pip install seleniumbase undetected-chromedriver
+
+      - name: Run update script (headless with Xvfb)
+        run: |
+          xvfb-run -a python scripts/update_channels_headless.py
+
+      - name: Commit and push channels.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add channels.json
+          git commit -m "Auto-update channels.json" || echo "No changes"
+          git push
