@@ -1,18 +1,49 @@
-import json
-from pathlib import Path
-# Ruta absoluta a la raíz del proyecto (Liga)
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_FILE = PROJECT_ROOT / "channels.json"
-
+import os
 import json
 import time
+import subprocess
+from pathlib import Path
 from seleniumbase import SB
-from urllib.parse import quote_plus
+
+# ============================================================
+#  DETECTAR RAÍZ REAL DEL PROYECTO (A PRUEBA DE SELENIUM / CI)
+# ============================================================
+
+def get_project_root():
+    # 1) GitHub Actions
+    github_workspace = os.environ.get("GITHUB_WORKSPACE")
+    if github_workspace:
+        return Path(github_workspace).resolve()
+
+    # 2) Local PC usando git
+    try:
+        result = subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"],
+            stderr=subprocess.DEVNULL,
+            text=True
+        ).strip()
+        return Path(result).resolve()
+    except Exception:
+        pass
+
+    # 3) Fallback final (nunca debería usarse)
+    return Path(__file__).resolve().parents[1]
+
+
+PROJECT_ROOT = get_project_root()
+OUTPUT_FILE = PROJECT_ROOT / "channels.json"
+
+print(f"[INFO] Project root detected as: {PROJECT_ROOT}")
+print(f"[INFO] channels.json will be written to: {OUTPUT_FILE}")
+
+# ============================================================
+#  CONFIGURACIÓN
+# ============================================================
 
 BASE_URL = "https://search-ace.stream"
-SEARCH_URL = BASE_URL + "/search?query="
+SEARCH_URL = "https://search-ace.stream/search?query={}"
 
-CHANNELS = [
+CHANNEL_QUERIES = [
     "M+ Liga de Campeones FHD",
     "Movistar La Liga",
     "La Liga",
@@ -27,102 +58,85 @@ CHANNELS = [
     "Football",
 ]
 
-OUTPUT_FILE = "channels.json"
+# ============================================================
+#  ESPERA INTELIGENTE (CLOUDFLARE)
+# ============================================================
 
-
-def wait_for_site_ready(sb):
-    print("Opening base URL (headless)...")
-    sb.open(BASE_URL)
-
+def wait_for_site_ready(sb, timeout=60):
     print("Waiting for full page load...")
-    sb.wait_for_ready_state_complete(timeout=60)
+    sb.wait_for_ready_state_complete(timeout=timeout)
 
     print("Waiting extra time for Cloudflare challenge to fully settle...")
-    time.sleep(25)
+    time.sleep(8)
 
-    # Confirm JS execution works
-    test_script = """
-        const cb = arguments[arguments.length - 1];
-        fetch('/search?query=test')
-            .then(r => r.json())
-            .then(() => cb(true))
-            .catch(() => cb(false));
-    """
-    ok = sb.execute_async_script(test_script, timeout=30)
-    if not ok:
-        raise RuntimeError("Site not ready for JS execution")
-
+    sb.execute_script("return document.body")
     print("Site ready. JS execution confirmed.")
 
+# ============================================================
+#  FETCH SEARCH RESULTS
+# ============================================================
 
 def fetch_search_results(sb, query):
-    url = SEARCH_URL + quote_plus(query)
+    url = SEARCH_URL.format(sb.url_encode(query))
 
-    script = f"""
-        const cb = arguments[arguments.length - 1];
-        fetch("{url}")
-            .then(r => r.json())
-            .then(data => cb(data))
-            .catch(err => cb({{error: err.toString()}}));
+    script = """
+    const callback = arguments[arguments.length - 1];
+    fetch(arguments[0])
+        .then(resp => resp.json())
+        .then(data => callback(data))
+        .catch(err => callback([]));
     """
-    return sb.execute_async_script(script, timeout=30)
 
+    return sb.execute_async_script(script, url)
+
+# ============================================================
+#  MAIN
+# ============================================================
 
 def main():
-    collected = []
+    all_results = []
 
     with SB(
         uc=True,
         headless=True,
-        incognito=True,
+        disable_js=False,
         window_size="1920,1080"
     ) as sb:
 
+        print("Opening base URL...")
+        sb.open(BASE_URL)
+
         wait_for_site_ready(sb)
 
-        for channel in CHANNELS:
-            print(f"Searching: {channel}")
-            time.sleep(2)
+        for query in CHANNEL_QUERIES:
+            print(f"Searching: {query}")
+            results = fetch_search_results(sb, query)
 
-            results = fetch_search_results(sb, channel)
-
-            if isinstance(results, dict) and "error" in results:
-                print("  Fetch error:", results["error"])
+            if not results:
+                print("  No results")
                 continue
 
-            if not isinstance(results, list):
-                print("  Unexpected response format")
-                continue
+            print(f"  Found: {len(results)}")
 
-            found = 0
             for item in results:
-                if not isinstance(item, dict):
-                    continue
-
-                content_id = item.get("content_id")
-                if not content_id:
-                    continue
-
-                collected.append({
-                    "query": channel,
+                all_results.append({
+                    "query": query,
                     "name": item.get("name"),
                     "translated_name": item.get("translated_name"),
-                    "content_id": content_id,
+                    "content_id": item.get("content_id"),
                     "pid": item.get("pid"),
                 })
-                found += 1
 
-            print(f"  Found: {found}")
+    # ========================================================
+    #  GUARDAR SIEMPRE EN LA RAÍZ
+    # ========================================================
 
-        if not collected:
-            print("No channels found")
-            return
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(all_results, f, indent=2, ensure_ascii=False)
 
-        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            json.dump(collected, f, indent=2, ensure_ascii=False)
+    print(f"Saved {len(all_results)} channels to {OUTPUT_FILE}")
 
-        print(f"Saved {len(collected)} channels to {OUTPUT_FILE}")
-
+# ============================================================
 
 if __name__ == "__main__":
     main()
