@@ -3,10 +3,11 @@ import json
 import time
 import subprocess
 from pathlib import Path
+from urllib.parse import quote_plus
 from seleniumbase import SB
 
 # ============================================================
-#  DETECTAR RAÍZ REAL DEL PROYECTO (A PRUEBA DE SELENIUM / CI)
+#  DETECTAR RAÍZ REAL DEL PROYECTO (LOCAL + GITHUB ACTIONS)
 # ============================================================
 
 def get_project_root():
@@ -15,7 +16,7 @@ def get_project_root():
     if github_workspace:
         return Path(github_workspace).resolve()
 
-    # 2) Local PC usando git
+    # 2) Local usando git
     try:
         result = subprocess.check_output(
             ["git", "rev-parse", "--show-toplevel"],
@@ -26,7 +27,7 @@ def get_project_root():
     except Exception:
         pass
 
-    # 3) Fallback final (nunca debería usarse)
+    # 3) Fallback absoluto (último recurso)
     return Path(__file__).resolve().parents[1]
 
 
@@ -59,25 +60,28 @@ CHANNEL_QUERIES = [
 ]
 
 # ============================================================
-#  ESPERA INTELIGENTE (CLOUDFLARE)
+#  ESPERA ROBUSTA (CLOUDFLARE)
 # ============================================================
 
 def wait_for_site_ready(sb, timeout=60):
     print("Waiting for full page load...")
     sb.wait_for_ready_state_complete(timeout=timeout)
 
+    # Cloudflare suele finalizar DESPUÉS del readyState
     print("Waiting extra time for Cloudflare challenge to fully settle...")
-    time.sleep(8)
+    time.sleep(10)
 
+    # Verificación mínima de ejecución JS
     sb.execute_script("return document.body")
     print("Site ready. JS execution confirmed.")
 
 # ============================================================
-#  FETCH SEARCH RESULTS
+#  FETCH SEARCH RESULTS (JSON DIRECTO)
 # ============================================================
 
 def fetch_search_results(sb, query):
-    url = SEARCH_URL.format(sb.url_encode(query))
+    encoded_query = quote_plus(query)
+    url = SEARCH_URL.format(encoded_query)
 
     script = """
     const callback = arguments[arguments.length - 1];
@@ -119,6 +123,9 @@ def main():
             print(f"  Found: {len(results)}")
 
             for item in results:
+                if not isinstance(item, dict):
+                    continue
+
                 all_results.append({
                     "query": query,
                     "name": item.get("name"),
@@ -128,7 +135,7 @@ def main():
                 })
 
     # ========================================================
-    #  GUARDAR SIEMPRE EN LA RAÍZ
+    #  GUARDAR SIEMPRE EN LA RAÍZ DEL PROYECTO
     # ========================================================
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
