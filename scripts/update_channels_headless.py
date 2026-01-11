@@ -96,11 +96,13 @@ def main():
     all_results = []
 
     with SB(
-        uc=True,
-        headless=True,
-        disable_js=False,
-        window_size="1920,1080"
-    ) as sb:
+    uc=True,
+    headless=False,          # IMPORTANTE: false cuando usas Xvfb
+    xvfb=False,              # CRÍTICO: desactiva sbvirtualdisplay
+    incognito=True,
+    disable_csp=True
+) as sb:
+
 
         print("Opening base URL...")
         sb.open(BASE_URL)
