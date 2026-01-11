@@ -1,48 +1,40 @@
-name: Update AceStream Channels
+name: Update channels
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"   # cada 6 horas
-  workflow_dispatch:       # ejecución manual
+    - cron: "0 */6 * * *"
 
 jobs:
-  update-channels:
-    runs-on: ubuntu-latest
+  update:
+    runs-on: [self-hosted, windows, x64]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install system dependencies
+      - name: Verify Python
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            google-chrome-stable \
-            xvfb
+          python --version
+          pip --version
 
-      - name: Install Python dependencies
+      - name: Install dependencies (if needed)
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          seleniumbase install chromedriver
+          pip install seleniumbase
 
-      - name: Run channel updater (headless)
+      - name: Run updater (headless)
         run: |
           python scripts/update_channels_headless.py
 
-      - name: Commit updated channels.json
+      - name: Commit and push if changed
         run: |
-          if git diff --quiet; then
-            echo "No changes to commit"
-          else
-            git config user.name "github-actions"
-            git config user.email "github-actions@github.com"
+          git status
+          if (git status --porcelain) {
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git add channels.json
             git commit -m "Auto-update channels.json"
             git push
-          fi
+          } else {
+            echo "No changes to commit"
+          }
