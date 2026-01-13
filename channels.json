@@ -1,1003 +1,450 @@
 [
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Deportivo - Atlético Madrid (Portuguese)",
-    "translated_name": "Deportivo - Atlético Madrid (Portuguese)",
-    "content_id": "4f276d598d79985692889c86b0d83226cefb8c05",
-    "pid": 38247
+    "hash": "4f276d598d79985692889c86b0d83226cefb8c05"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Deportivo - Atlético Madrid (Russian)",
-    "translated_name": "Deportivo - Atlético Madrid (Russian)",
-    "content_id": "ffbf8c687c788d9a1a7c651e24802ee773ff3f04",
-    "pid": 35885
+    "hash": "ffbf8c687c788d9a1a7c651e24802ee773ff3f04"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Deportivo - Atlético Madrid (Russian)",
-    "translated_name": "Deportivo - Atlético Madrid (Russian)",
-    "content_id": "6f0801e5b927a82bcd3a144c96aeaa162c49d032",
-    "pid": 10128
+    "hash": "6f0801e5b927a82bcd3a144c96aeaa162c49d032"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (Portuguese)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (Portuguese)",
-    "content_id": "36cad67fed5a739757a9db844a551aa845a8d51b",
-    "pid": 26615
+    "hash": "36cad67fed5a739757a9db844a551aa845a8d51b"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (Portuguese)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (Portuguese)",
-    "content_id": "a04e3d6756ec7fc3713cdb05f1850c88681eb90f",
-    "pid": 4902
+    "hash": "a04e3d6756ec7fc3713cdb05f1850c88681eb90f"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (German)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (German)",
-    "content_id": "8a6d5634f02528f2c1ac95cc1039336b4937426a",
-    "pid": 6288
+    "hash": "8a6d5634f02528f2c1ac95cc1039336b4937426a"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (Russian)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (Russian)",
-    "content_id": "f6d68cfa8694f814983f2a5757f4e0c4964b880c",
-    "pid": 20091
+    "hash": "f6d68cfa8694f814983f2a5757f4e0c4964b880c"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (Russian)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (Russian)",
-    "content_id": "44b53ab10a8701033f7cd2d3af6839d4c1aefd40",
-    "pid": 47081
+    "hash": "44b53ab10a8701033f7cd2d3af6839d4c1aefd40"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (Russian)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (Russian)",
-    "content_id": "acf136db29c1425c9de81fb2fee9d22aeafb58e0",
-    "pid": 39381
+    "hash": "acf136db29c1425c9de81fb2fee9d22aeafb58e0"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Borussia Dortmund - Werder Bremen (Ukrainian)",
-    "translated_name": "Borussia Dortmund - Werder Bremen (Ukrainian)",
-    "content_id": "82461e7c539b3f266973bde43f007e7a69b812df",
-    "pid": 26282
+    "hash": "82461e7c539b3f266973bde43f007e7a69b812df"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Mainz - Heidenheim (Portuguese)",
-    "translated_name": "Mainz - Heidenheim (Portuguese)",
-    "content_id": "0f32c0131a2d9444996410801f4e18b04384db98",
-    "pid": 47726
+    "hash": "0f32c0131a2d9444996410801f4e18b04384db98"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
     "name": "Mainz - Heidenheim (Portuguese)",
-    "translated_name": "Mainz - Heidenheim (Portuguese)",
-    "content_id": "1191f0a889455a068b67e306306767856e66132a",
-    "pid": 38471
+    "hash": "1191f0a889455a068b67e306306767856e66132a"
   },
   {
-    "query": "M+ Liga de Campeones FHD",
-    "name": "Mainz - Heidenheim (German)",
-    "translated_name": "Mainz - Heidenheim (German)",
-    "content_id": "8a6d5634f02528f2c1ac95cc1039336b4937426a",
-    "pid": 1367
-  },
-  {
-    "query": "M+ Liga de Campeones FHD",
     "name": "De Treffers - NEC (Dutch)",
-    "translated_name": "De Treffers - NEC (Dutch)",
-    "content_id": "724910eed205e53f4b4ab3617be339d6f41e7c80",
-    "pid": 43457
+    "hash": "724910eed205e53f4b4ab3617be339d6f41e7c80"
   },
   {
-    "query": "Movistar La Liga",
-    "name": "Bayonnais - Marseillais (Portuguese)",
-    "translated_name": "Bayonnais - Marseillais (Portuguese)",
-    "content_id": "4f276d598d79985692889c86b0d83226cefb8c05",
-    "pid": 16827
-  },
-  {
-    "query": "Movistar La Liga",
     "name": "Bayonnais - Marseillais (Russian)",
-    "translated_name": "Bayonnais - Marseillais (Russian)",
-    "content_id": "a5e68b41ee64f3150c80fd21aea7eafbe73fe631",
-    "pid": 5734
+    "hash": "a5e68b41ee64f3150c80fd21aea7eafbe73fe631"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Bayonnais - Marseillais (Ukrainian)",
-    "translated_name": "Bayonnais - Marseillais (Ukrainian)",
-    "content_id": "6015a517a49c4a2d51b36222d94af0223ea822ee",
-    "pid": 20587
+    "hash": "6015a517a49c4a2d51b36222d94af0223ea822ee"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Fethiye Spor - Galatasaray (Turkish)",
-    "translated_name": "Fethiye Spor - Galatasaray (Turkish)",
-    "content_id": "43477b919646edde76877a59f6e10fcb395467ad",
-    "pid": 39775
+    "hash": "43477b919646edde76877a59f6e10fcb395467ad"
   },
   {
-    "query": "Movistar La Liga",
-    "name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "translated_name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "content_id": "43477b919646edde76877a59f6e10fcb395467ad",
-    "pid": 38286
-  },
-  {
-    "query": "Movistar La Liga",
     "name": "Sacramento - LA Lakers (Russian)",
-    "translated_name": "Sacramento - LA Lakers (Russian)",
-    "content_id": "42fe2ce3ef6b92653a74d85b6e98c2ba0abee707",
-    "pid": 8346
+    "hash": "42fe2ce3ef6b92653a74d85b6e98c2ba0abee707"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "translated_name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "content_id": "a7952ed9d585cdc542b10e5b680a5798c0fe5d29",
-    "pid": 39010
+    "hash": "a7952ed9d585cdc542b10e5b680a5798c0fe5d29"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Al-Hilal - Al-Nasr (Russian)",
-    "translated_name": "Al-Hilal - Al-Nasr (Russian)",
-    "content_id": "e38b33c56332de27ff25df223cdf488b1ec6051f",
-    "pid": 9943
+    "hash": "e38b33c56332de27ff25df223cdf488b1ec6051f"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Sevilla - Celta (Dutch)",
-    "translated_name": "Sevilla - Celta (Dutch)",
-    "content_id": "976a526928d17e2cebd7020dc85f00c99b286630",
-    "pid": 34234
+    "hash": "976a526928d17e2cebd7020dc85f00c99b286630"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Sevilla - Celta (Portuguese)",
-    "translated_name": "Sevilla - Celta (Portuguese)",
-    "content_id": "36cad67fed5a739757a9db844a551aa845a8d51b",
-    "pid": 30705
+    "hash": "43975dcbffac8bb1c7c65ea1253c04fc4d6aea24"
   },
   {
-    "query": "Movistar La Liga",
-    "name": "Sevilla - Celta (Portuguese)",
-    "translated_name": "Sevilla - Celta (Portuguese)",
-    "content_id": "43975dcbffac8bb1c7c65ea1253c04fc4d6aea24",
-    "pid": 20970
-  },
-  {
-    "query": "Movistar La Liga",
     "name": "Sevilla - Celta (English)",
-    "translated_name": "Sevilla - Celta (English)",
-    "content_id": "9d7c2fab467842c58c0e9110d0400333d6d6c32f",
-    "pid": 37610
+    "hash": "9d7c2fab467842c58c0e9110d0400333d6d6c32f"
   },
   {
-    "query": "Movistar La Liga",
     "name": "Sevilla - Celta (Russian)",
-    "translated_name": "Sevilla - Celta (Russian)",
-    "content_id": "ffbf8c687c788d9a1a7c651e24802ee773ff3f04",
-    "pid": 47790
+    "hash": "a073e546e1af3fa49e7b8b9374f94a208983992c"
   },
   {
-    "query": "Movistar La Liga",
-    "name": "Sevilla - Celta (Russian)",
-    "translated_name": "Sevilla - Celta (Russian)",
-    "content_id": "a073e546e1af3fa49e7b8b9374f94a208983992c",
-    "pid": 41364
-  },
-  {
-    "query": "Movistar La Liga",
     "name": "Sevilla - Celta (Ukrainian)",
-    "translated_name": "Sevilla - Celta (Ukrainian)",
-    "content_id": "f196baa73f1d2b1a0219e04fdb77b90b3c2ae517",
-    "pid": 29438
+    "hash": "f196baa73f1d2b1a0219e04fdb77b90b3c2ae517"
   },
   {
-    "query": "La Liga",
-    "name": "Bayonnais - Marseillais (Portuguese)",
-    "translated_name": "Bayonnais - Marseillais (Portuguese)",
-    "content_id": "4f276d598d79985692889c86b0d83226cefb8c05",
-    "pid": 20686
-  },
-  {
-    "query": "La Liga",
-    "name": "Bayonnais - Marseillais (Russian)",
-    "translated_name": "Bayonnais - Marseillais (Russian)",
-    "content_id": "a5e68b41ee64f3150c80fd21aea7eafbe73fe631",
-    "pid": 11060
-  },
-  {
-    "query": "La Liga",
-    "name": "Bayonnais - Marseillais (Ukrainian)",
-    "translated_name": "Bayonnais - Marseillais (Ukrainian)",
-    "content_id": "6015a517a49c4a2d51b36222d94af0223ea822ee",
-    "pid": 8792
-  },
-  {
-    "query": "La Liga",
-    "name": "Fethiye Spor - Galatasaray (Turkish)",
-    "translated_name": "Fethiye Spor - Galatasaray (Turkish)",
-    "content_id": "43477b919646edde76877a59f6e10fcb395467ad",
-    "pid": 26903
-  },
-  {
-    "query": "La Liga",
-    "name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "translated_name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "content_id": "43477b919646edde76877a59f6e10fcb395467ad",
-    "pid": 11320
-  },
-  {
-    "query": "La Liga",
-    "name": "Sacramento - LA Lakers (Russian)",
-    "translated_name": "Sacramento - LA Lakers (Russian)",
-    "content_id": "42fe2ce3ef6b92653a74d85b6e98c2ba0abee707",
-    "pid": 23361
-  },
-  {
-    "query": "La Liga",
-    "name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "translated_name": "Alanyaspor - Fatih Karagümrük (Turkish)",
-    "content_id": "a7952ed9d585cdc542b10e5b680a5798c0fe5d29",
-    "pid": 24509
-  },
-  {
-    "query": "La Liga",
-    "name": "Al-Hilal - Al-Nasr (Russian)",
-    "translated_name": "Al-Hilal - Al-Nasr (Russian)",
-    "content_id": "e38b33c56332de27ff25df223cdf488b1ec6051f",
-    "pid": 9110
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (Dutch)",
-    "translated_name": "Sevilla - Celta (Dutch)",
-    "content_id": "976a526928d17e2cebd7020dc85f00c99b286630",
-    "pid": 24687
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (Portuguese)",
-    "translated_name": "Sevilla - Celta (Portuguese)",
-    "content_id": "36cad67fed5a739757a9db844a551aa845a8d51b",
-    "pid": 39798
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (Portuguese)",
-    "translated_name": "Sevilla - Celta (Portuguese)",
-    "content_id": "43975dcbffac8bb1c7c65ea1253c04fc4d6aea24",
-    "pid": 38902
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (English)",
-    "translated_name": "Sevilla - Celta (English)",
-    "content_id": "9d7c2fab467842c58c0e9110d0400333d6d6c32f",
-    "pid": 16463
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (Russian)",
-    "translated_name": "Sevilla - Celta (Russian)",
-    "content_id": "ffbf8c687c788d9a1a7c651e24802ee773ff3f04",
-    "pid": 26378
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (Russian)",
-    "translated_name": "Sevilla - Celta (Russian)",
-    "content_id": "a073e546e1af3fa49e7b8b9374f94a208983992c",
-    "pid": 19009
-  },
-  {
-    "query": "La Liga",
-    "name": "Sevilla - Celta (Ukrainian)",
-    "translated_name": "Sevilla - Celta (Ukrainian)",
-    "content_id": "f196baa73f1d2b1a0219e04fdb77b90b3c2ae517",
-    "pid": 2423
-  },
-  {
-    "query": "La Liga",
     "name": "DAZN LA LIGA 1 FHD --> NEW ERA",
-    "translated_name": "DAZN LA LIGA 1 FHD --> NEW ERA",
-    "content_id": "d1596a3988b84a4d2711fd380eb8a53256ad74ae",
-    "pid": 4781
+    "hash": "d1596a3988b84a4d2711fd380eb8a53256ad74ae"
   },
   {
-    "query": "La Liga",
     "name": "DAZN LA LIGA 2 FHD --> NEW ERA",
-    "translated_name": "DAZN LA LIGA 2 FHD --> NEW ERA",
-    "content_id": "635b61c1f240449163260cd914d10d886a54fee3",
-    "pid": 39517
+    "hash": "635b61c1f240449163260cd914d10d886a54fee3"
   },
   {
-    "query": "Champions",
     "name": "M. Liga de Campeones",
-    "translated_name": "M. Champions League",
-    "content_id": "e572a5178ff72eed7d1d751a18b4b3419699f370",
-    "pid": 23926
+    "hash": "e572a5178ff72eed7d1d751a18b4b3419699f370"
   },
   {
-    "query": "Champions",
-    "name": "M. Liga de Campeones",
-    "translated_name": "M. Champions League",
-    "content_id": "e572a5178ff72eed7d1d751a18b4b3419699f370",
-    "pid": 20009
-  },
-  {
-    "query": "Champions",
     "name": "M. Liga de Campeones 2",
-    "translated_name": "M. Champions League 2",
-    "content_id": "338b5de78b0b40a6f9ca3cc0cf9be93341b9ceea",
-    "pid": 2010
+    "hash": "338b5de78b0b40a6f9ca3cc0cf9be93341b9ceea"
   },
   {
-    "query": "Champions",
     "name": "M. Liga de Campeones 3",
-    "translated_name": "M. Champions League 3",
-    "content_id": "90f7941c6bf7ca4b18084a1dca7bc15b9b179373",
-    "pid": 19825
+    "hash": "90f7941c6bf7ca4b18084a1dca7bc15b9b179373"
   },
   {
-    "query": "Champions",
     "name": "M. Liga de Campeones 4",
-    "translated_name": "M. Champions League 4",
-    "content_id": "6fbab1d8d6bf93c4bc7552714aa3bb54ebf7b661",
-    "pid": 13665
+    "hash": "6fbab1d8d6bf93c4bc7552714aa3bb54ebf7b661"
   },
   {
-    "query": "Champions",
     "name": "M+ Liga de Campeones 2 FHD",
-    "translated_name": "M+ Champions League 2 FHD",
-    "content_id": "f00b018faa7d17cc2fb27f34f567a69ca0d1081f",
-    "pid": 16548
+    "hash": "f00b018faa7d17cc2fb27f34f567a69ca0d1081f"
   },
   {
-    "query": "Champions",
     "name": "M+ Liga de Campeones 3 FHD",
-    "translated_name": "M+ Champions League 3 FHD",
-    "content_id": "a9d68301596739a6659873bed3f55802cf744ce8",
-    "pid": 32350
+    "hash": "a9d68301596739a6659873bed3f55802cf744ce8"
   },
   {
-    "query": "Champions",
     "name": "M+ Liga de Campeones 4 FHD",
-    "translated_name": "M+ Champions League 4 FHD",
-    "content_id": "503e5809d640a64251f95084be99edb4d85056d9",
-    "pid": 5129
+    "hash": "503e5809d640a64251f95084be99edb4d85056d9"
   },
   {
-    "query": "Champions",
     "name": "M+ Liga de Campeones FHD",
-    "translated_name": "M+ Champions League FHD",
-    "content_id": "a3197f5fa9d42f199d5bbe5a5c47ec4cfbf248cb",
-    "pid": 1513
+    "hash": "a3197f5fa9d42f199d5bbe5a5c47ec4cfbf248cb"
   },
   {
-    "query": "Champions",
     "name": "Movistar Liga de Campeones 3 --> NEW ERA VI (shickat.me)",
-    "translated_name": "Movistar Champions League 3 --> NEW ERA VI (shickat.me)",
-    "content_id": "2b5129adc57d43790634d796fe3468b9fd061259",
-    "pid": 39064
+    "hash": "2b5129adc57d43790634d796fe3468b9fd061259"
   },
   {
-    "query": "Champions",
     "name": "Table Top Tennis National Championship",
-    "translated_name": "Table Top Tennis National Championship",
-    "content_id": "b578d6e388ceba06be0199150dc21af416f3329f",
-    "pid": 4927
+    "hash": "b578d6e388ceba06be0199150dc21af416f3329f"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 BAR FHD --> NEW ERA",
-    "translated_name": "DAZN 1 BAR FHD --> NEW ERA",
-    "content_id": "688e785893b50acc1d00cb37f15bfc42e72f5ae3",
-    "pid": 16042
+    "hash": "688e785893b50acc1d00cb37f15bfc42e72f5ae3"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 Bar HD [DE]",
-    "translated_name": "DAZN 1 Bar HD [DE]",
-    "content_id": "897e73c9d578848f596585314ecb9ae067c0e229",
-    "pid": 47639
+    "hash": "897e73c9d578848f596585314ecb9ae067c0e229"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 FHD --> NEW ERA",
-    "translated_name": "DAZN 1 FHD --> NEW ERA",
-    "content_id": "6538b79ce0da657d8455d1da6a5f342398899a0e",
-    "pid": 41113
+    "hash": "6538b79ce0da657d8455d1da6a5f342398899a0e"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 FHD --> NEW ERA",
-    "translated_name": "DAZN 1 FHD --> NEW ERA",
-    "content_id": "4141892f5df7d6474bf0279895ce02b7336c9928",
-    "pid": 18231
+    "hash": "4141892f5df7d6474bf0279895ce02b7336c9928"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 FHD --> NEW ERA",
-    "translated_name": "DAZN 1 FHD --> NEW ERA",
-    "content_id": "691739972eb3468cf16b25e84dafdeaa40dead6d",
-    "pid": 38345
+    "hash": "691739972eb3468cf16b25e84dafdeaa40dead6d"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 FHD (SAT) --> NEW ERA",
-    "translated_name": "DAZN 1 FHD (SAT) --> NEW ERA",
-    "content_id": "50a8a13c474848d1efbd5586efdb5b6cdd173fa9",
-    "pid": 26880
+    "hash": "50a8a13c474848d1efbd5586efdb5b6cdd173fa9"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 1 HD --> NEW ERA",
-    "translated_name": "DAZN 1 HD --> NEW ERA",
-    "content_id": "5b776533534b767a84dfda263825ad10f30a8ec7",
-    "pid": 3718
+    "hash": "5b776533534b767a84dfda263825ad10f30a8ec7"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 2 --> NEW ERA VI (shickat.me)",
-    "translated_name": "DAZN 2 --> NEW ERA VI (shickat.me)",
-    "content_id": "43004e955731cd3afcc34d24e5178d4b427bff37",
-    "pid": 10729
+    "hash": "43004e955731cd3afcc34d24e5178d4b427bff37"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 2 BAR FHD --> NEW ERA",
-    "translated_name": "DAZN 2 BAR FHD --> NEW ERA",
-    "content_id": "2f9211669499f413dab1a490198afab2a9b4b57c",
-    "pid": 23611
+    "hash": "2f9211669499f413dab1a490198afab2a9b4b57c"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 2 Bar HD [DE]",
-    "translated_name": "DAZN 2 Bar HD [DE]",
-    "content_id": "12ea555d431dbe51fc8e4ca745aec09fe22a4865",
-    "pid": 787
+    "hash": "12ea555d431dbe51fc8e4ca745aec09fe22a4865"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 2 FHD --> NEW ERA",
-    "translated_name": "DAZN 2 FHD --> NEW ERA",
-    "content_id": "8b081c8afbd9beafc8c5fbf0115eb36eadb07a35",
-    "pid": 5852
+    "hash": "8b081c8afbd9beafc8c5fbf0115eb36eadb07a35"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 2 FHD --> NEW ERA",
-    "translated_name": "DAZN 2 FHD --> NEW ERA",
-    "content_id": "fb2dd566824658eeab27aae19a01c09430f1a97d",
-    "pid": 38109
+    "hash": "fb2dd566824658eeab27aae19a01c09430f1a97d"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 3 FHD --> NEW ERA",
-    "translated_name": "DAZN 3 FHD --> NEW ERA",
-    "content_id": "8a86cd6152154a25ad4b76523160552a40313b28",
-    "pid": 7315
+    "hash": "8a86cd6152154a25ad4b76523160552a40313b28"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 3 FHD --> NEW ERA",
-    "translated_name": "DAZN 3 FHD --> NEW ERA",
-    "content_id": "d641cd0fca0f467b3130754a091e2f4d22e68eb1",
-    "pid": 41039
+    "hash": "d641cd0fca0f467b3130754a091e2f4d22e68eb1"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 4 FHD --> NEW ERA",
-    "translated_name": "DAZN 4 FHD --> NEW ERA",
-    "content_id": "7e27e46c25d4308d16098d9dc67fcd8736e8c1f0",
-    "pid": 39983
+    "hash": "7e27e46c25d4308d16098d9dc67fcd8736e8c1f0"
   },
   {
-    "query": "DAZN",
     "name": "DAZN 4 FHD --> NEW ERA",
-    "translated_name": "DAZN 4 FHD --> NEW ERA",
-    "content_id": "c015d37d1ead8155b1e7b97e743a1fe9850f0af5",
-    "pid": 47036
+    "hash": "c015d37d1ead8155b1e7b97e743a1fe9850f0af5"
   },
   {
-    "query": "DAZN",
     "name": "DAZN BUNDESLIGA 3 FHD --> NEW ERA",
-    "translated_name": "DAZN BUNDESLIGA 3 FHD --> NEW ERA",
-    "content_id": "692d6a47ba99fbfc67fa947e468e859c7f2b9564",
-    "pid": 24868
+    "hash": "692d6a47ba99fbfc67fa947e468e859c7f2b9564"
   },
   {
-    "query": "DAZN",
     "name": "DAZN EVENTOS 1 --> NEW ERA",
-    "translated_name": "DAZN EVENTOS 1 --> NEW ERA",
-    "content_id": "176f0b8565a161f87c81a4a250463e3eaf678fb5",
-    "pid": 21565
+    "hash": "176f0b8565a161f87c81a4a250463e3eaf678fb5"
   },
   {
-    "query": "DAZN",
     "name": "DAZN EVENTOS 2 --> NEW ERA",
-    "translated_name": "DAZN EVENTOS 2 --> NEW ERA",
-    "content_id": "8bdeb6055da0be3bd1e1977dbf3640408f7d0267",
-    "pid": 49
+    "hash": "8bdeb6055da0be3bd1e1977dbf3640408f7d0267"
   },
   {
-    "query": "DAZN",
     "name": "DAZN EVENTOS 3 --> NEW ERA",
-    "translated_name": "DAZN EVENTOS 3 --> NEW ERA",
-    "content_id": "4b048bcfaed7daec454e88f0e29b56756300447d",
-    "pid": 32106
+    "hash": "4b048bcfaed7daec454e88f0e29b56756300447d"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 4K --> NEW ERA",
-    "translated_name": "DAZN F1 4K --> NEW ERA",
-    "content_id": "c8ad94585fbe13cfc9074c2b5e23fb6344e0f66d",
-    "pid": 38156
+    "hash": "c8ad94585fbe13cfc9074c2b5e23fb6344e0f66d"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 FHD",
-    "translated_name": "DAZN F1 FHD",
-    "content_id": "8272d1ed95cdd8945c248ce488fa26bd435fb71f",
-    "pid": 32021
+    "hash": "8272d1ed95cdd8945c248ce488fa26bd435fb71f"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 FHD --> NEW ERA",
-    "translated_name": "DAZN F1 FHD --> NEW ERA",
-    "content_id": "82b4f249788f93b8f9ce968803662d7cd4f1b8cc",
-    "pid": 35662
+    "hash": "82b4f249788f93b8f9ce968803662d7cd4f1b8cc"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 FHD --> NEW ERA",
-    "translated_name": "DAZN F1 FHD --> NEW ERA",
-    "content_id": "d5cf2dfa4fb4165ce58bf9db815088c28fec7711",
-    "pid": 8725
+    "hash": "d5cf2dfa4fb4165ce58bf9db815088c28fec7711"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 FHD --> NEW ERA",
-    "translated_name": "DAZN F1 FHD --> NEW ERA",
-    "content_id": "515efd8115482bda8d92aa6df9a882a5e5797494",
-    "pid": 26399
+    "hash": "515efd8115482bda8d92aa6df9a882a5e5797494"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 FHD --> NEW ERA",
-    "translated_name": "DAZN F1 FHD --> NEW ERA",
-    "content_id": "6422e8bc34282871634c81947be093c04ad1bb29",
-    "pid": 12972
+    "hash": "6422e8bc34282871634c81947be093c04ad1bb29"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 FHD (SAT) --> NEW ERA",
-    "translated_name": "DAZN F1 FHD (SAT) --> NEW ERA",
-    "content_id": "c9c18ae7a9dafba1caae5beb22060f9c92bba553",
-    "pid": 35950
+    "hash": "c9c18ae7a9dafba1caae5beb22060f9c92bba553"
   },
   {
-    "query": "DAZN",
     "name": "DAZN F1 HD",
-    "translated_name": "DAZN F1 HD",
-    "content_id": "d65257bb934b73647374224fd62d836815804be2",
-    "pid": 47086
+    "hash": "d65257bb934b73647374224fd62d836815804be2"
   },
   {
-    "query": "DAZN",
-    "name": "DAZN F1 HD",
-    "translated_name": "DAZN F1 HD",
-    "content_id": "d65257bb934b73647374224fd62d836815804be2",
-    "pid": 5091
-  },
-  {
-    "query": "DAZN",
     "name": "DAZN F1 SD --> NEW ERA",
-    "translated_name": "DAZN F1 SD --> NEW ERA",
-    "content_id": "4bc6f4cb6697c1defc981c0afe1a4c3a62284aee",
-    "pid": 7016
+    "hash": "4bc6f4cb6697c1defc981c0afe1a4c3a62284aee"
   },
   {
-    "query": "DAZN",
-    "name": "DAZN LA LIGA 1 FHD --> NEW ERA",
-    "translated_name": "DAZN LA LIGA 1 FHD --> NEW ERA",
-    "content_id": "d1596a3988b84a4d2711fd380eb8a53256ad74ae",
-    "pid": 1964
-  },
-  {
-    "query": "DAZN",
-    "name": "DAZN LA LIGA 2 FHD --> NEW ERA",
-    "translated_name": "DAZN LA LIGA 2 FHD --> NEW ERA",
-    "content_id": "635b61c1f240449163260cd914d10d886a54fee3",
-    "pid": 28717
-  },
-  {
-    "query": "DAZN",
     "name": "DAZN LaLiga",
-    "translated_name": "DAZN LaLiga",
-    "content_id": "dda5d2cace9bc4cb0918e62bc50d657d4a10496a",
-    "pid": 1746
+    "hash": "dda5d2cace9bc4cb0918e62bc50d657d4a10496a"
   },
   {
-    "query": "DAZN",
     "name": "Dazn LaLiga HEVC --> NEW ERA",
-    "translated_name": "Dazn LaLiga HEVC --> NEW ERA",
-    "content_id": "19f28f60c908f987b1a03da078e63320d7bf29e8",
-    "pid": 40256
+    "hash": "19f28f60c908f987b1a03da078e63320d7bf29e8"
   },
   {
-    "query": "DAZN",
     "name": "DAZN PVV --> NEW ERA",
-    "translated_name": "DAZN PVV --> NEW ERA",
-    "content_id": "0f86119f233fd64fe85cc0b4a9059590d06d242a",
-    "pid": 41567
+    "hash": "0f86119f233fd64fe85cc0b4a9059590d06d242a"
   },
   {
-    "query": "DAZN",
     "name": "DAZN PVV --> NEW ERA",
-    "translated_name": "DAZN PVV --> NEW ERA",
-    "content_id": "1c8f3326142645fb3678075c7171d650594be795",
-    "pid": 31818
+    "hash": "1c8f3326142645fb3678075c7171d650594be795"
   },
   {
-    "query": "DAZN",
     "name": "DAZN PVV --> NEW ERA",
-    "translated_name": "DAZN PVV --> NEW ERA",
-    "content_id": "34944c86bad01c3963ef113c28c033858085adb7",
-    "pid": 17093
+    "hash": "34944c86bad01c3963ef113c28c033858085adb7"
   },
   {
-    "query": "DAZN",
     "name": "DAZN_LaLiga_FHD",
-    "translated_name": "DAZN_LaLiga_FHD",
-    "content_id": "99171f30c83bf7ab5df28b39607c91334cc60e4b",
-    "pid": 29327
+    "hash": "99171f30c83bf7ab5df28b39607c91334cc60e4b"
   },
   {
-    "query": "DAZN",
     "name": "DAZN_LaLiga_FHD",
-    "translated_name": "DAZN_LaLiga_FHD",
-    "content_id": "3b5692a70c0d0d1dd23fed31d7886b4aaa64bdaa",
-    "pid": 41967
+    "hash": "3b5692a70c0d0d1dd23fed31d7886b4aaa64bdaa"
   },
   {
-    "query": "DAZN",
     "name": "DAZN1",
-    "translated_name": "DAZN1",
-    "content_id": "d5b2c6b940cf3df5e8f9dc6f000f0ea23a10b151",
-    "pid": 43713
+    "hash": "d5b2c6b940cf3df5e8f9dc6f000f0ea23a10b151"
   },
   {
-    "query": "DAZN",
     "name": "DAZN2",
-    "translated_name": "DAZN2",
-    "content_id": "b0eabe0fdd02fdd165896236765a9b753a2ff516",
-    "pid": 32477
+    "hash": "b0eabe0fdd02fdd165896236765a9b753a2ff516"
   },
   {
-    "query": "DAZN",
     "name": "DAZN3",
-    "translated_name": "DAZN3",
-    "content_id": "d1d9ec2361a6ac8edc0b2841866383768cc28df9",
-    "pid": 37900
+    "hash": "d1d9ec2361a6ac8edc0b2841866383768cc28df9"
   },
   {
-    "query": "DAZN",
     "name": "DAZN4",
-    "translated_name": "DAZN4",
-    "content_id": "7e90956539f4e1318a63f3960e4f75c7c7c5a3b8",
-    "pid": 19149
+    "hash": "7e90956539f4e1318a63f3960e4f75c7c7c5a3b8"
   },
   {
-    "query": "DAZN LaLiga",
-    "name": "DAZN LaLiga",
-    "translated_name": "DAZN LaLiga",
-    "content_id": "dda5d2cace9bc4cb0918e62bc50d657d4a10496a",
-    "pid": 34406
-  },
-  {
-    "query": "DAZN LaLiga",
-    "name": "Dazn LaLiga HEVC --> NEW ERA",
-    "translated_name": "Dazn LaLiga HEVC --> NEW ERA",
-    "content_id": "19f28f60c908f987b1a03da078e63320d7bf29e8",
-    "pid": 49703
-  },
-  {
-    "query": "ESPN",
     "name": "BT Sport / ESPN [UK]",
-    "translated_name": "TNT Sport 4 / ESPN [UK]",
-    "content_id": "fc5089d8e1519872fdf951779ccbca913acc9bce",
-    "pid": 8625
+    "hash": "fc5089d8e1519872fdf951779ccbca913acc9bce"
   },
   {
-    "query": "ESPN",
     "name": "ESPN [BE]",
-    "translated_name": "ESPN [BE]",
-    "content_id": "79f10c6c6168e42bfc606f3f7b9e5f3ca79dedab",
-    "pid": 9974
+    "hash": "79f10c6c6168e42bfc606f3f7b9e5f3ca79dedab"
   },
   {
-    "query": "ESPN",
     "name": "ESPN 2 [BE]",
-    "translated_name": "ESPN 2 [BE]",
-    "content_id": "3e0ba6867173f345d482d80c771f1a5dc3b37e63",
-    "pid": 21322
+    "hash": "3e0ba6867173f345d482d80c771f1a5dc3b37e63"
   },
   {
-    "query": "ESPN",
     "name": "ESPN 3 [BE]",
-    "translated_name": "ESPN 3 [BE]",
-    "content_id": "a97cafedefe189d63e52eadc5c9bbc351b01540a",
-    "pid": 7108
+    "hash": "a97cafedefe189d63e52eadc5c9bbc351b01540a"
   },
   {
-    "query": "ESPN",
     "name": "ESPN 4 [BE]",
-    "translated_name": "ESPN 4 [BE]",
-    "content_id": "5f9b19c57195cc28ab81e0ec8cad03b55118687a",
-    "pid": 14941
+    "hash": "5f9b19c57195cc28ab81e0ec8cad03b55118687a"
   },
   {
-    "query": "ESPN",
     "name": "ESPN HD [US]",
-    "translated_name": "ESPN HD [US]",
-    "content_id": "4b4907de51ec11087d4bed5876f2a0c68264f442",
-    "pid": 10255
+    "hash": "4b4907de51ec11087d4bed5876f2a0c68264f442"
   },
   {
-    "query": "ESPN",
     "name": "ESPN2 [US]",
-    "translated_name": "ESPN2 [US]",
-    "content_id": "664eb5fe460b96941aed633959a845b185cd8394",
-    "pid": 45901
+    "hash": "664eb5fe460b96941aed633959a845b185cd8394"
   },
   {
-    "query": "TNT Sports",
     "name": "TNT SPORTS HD --> NEW ERA",
-    "translated_name": "TNT SPORTS HD --> NEW ERA",
-    "content_id": "5ccaf1da1ab3972502f2b35e581d7ab2f9b4965e",
-    "pid": 30285
+    "hash": "5ccaf1da1ab3972502f2b35e581d7ab2f9b4965e"
   },
   {
-    "query": "TNT Sports",
     "name": "UK : TNT Sports 1 FHD --> NEW ERA",
-    "translated_name": "UK : TNT Sports 1 FHD --> NEW ERA",
-    "content_id": "363f1d119b1971237318c0d953ab6eea5eb7c592",
-    "pid": 12667
+    "hash": "363f1d119b1971237318c0d953ab6eea5eb7c592"
   },
   {
-    "query": "TNT",
-    "name": "BT Sport / ESPN [UK]",
-    "translated_name": "TNT Sport 4 / ESPN [UK]",
-    "content_id": "fc5089d8e1519872fdf951779ccbca913acc9bce",
-    "pid": 46213
-  },
-  {
-    "query": "TNT",
     "name": "BT Sport 1 [UK]",
-    "translated_name": "TNT Sport 1 [UK]",
-    "content_id": "efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b",
-    "pid": 15166
+    "hash": "efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b"
   },
   {
-    "query": "TNT",
     "name": "BT Sport 2 [UK]",
-    "translated_name": "TNT Sport 2 [UK]",
-    "content_id": "d63d8a57cf471394bfa9f619bbd68b01ae27a801",
-    "pid": 36487
+    "hash": "d63d8a57cf471394bfa9f619bbd68b01ae27a801"
   },
   {
-    "query": "TNT",
     "name": "BT Sport 3 [UK]",
-    "translated_name": "TNT Sport 3 [UK]",
-    "content_id": "5f966c123759de46dff29c379266b7a403452033",
-    "pid": 6489
+    "hash": "5f966c123759de46dff29c379266b7a403452033"
   },
   {
-    "query": "TNT",
     "name": "tnt",
-    "translated_name": "tnt",
-    "content_id": "f63d14dbccb6ff0852fa15be7c149b7dac46b067",
-    "pid": 16720
+    "hash": "f63d14dbccb6ff0852fa15be7c149b7dac46b067"
   },
   {
-    "query": "TNT",
     "name": "TNT [PL]",
-    "translated_name": "TNT [PL]",
-    "content_id": "d0842346aad155a78f94dffe7d4ca313c33882a4",
-    "pid": 43777
+    "hash": "d0842346aad155a78f94dffe7d4ca313c33882a4"
   },
   {
-    "query": "TNT",
-    "name": "TNT SPORTS HD --> NEW ERA",
-    "translated_name": "TNT SPORTS HD --> NEW ERA",
-    "content_id": "5ccaf1da1ab3972502f2b35e581d7ab2f9b4965e",
-    "pid": 824
-  },
-  {
-    "query": "TNT",
-    "name": "UK : TNT Sports 1 FHD --> NEW ERA",
-    "translated_name": "UK : TNT Sports 1 FHD --> NEW ERA",
-    "content_id": "363f1d119b1971237318c0d953ab6eea5eb7c592",
-    "pid": 29672
-  },
-  {
-    "query": "TNT",
     "name": "ТНТ",
-    "translated_name": "TNT",
-    "content_id": "19704690d6c110880c8837f68376fb804e44bd66",
-    "pid": 6337
+    "hash": "19704690d6c110880c8837f68376fb804e44bd66"
   },
   {
-    "query": "Bein Sports",
     "name": "BeIN Sports 1 [BE]",
-    "translated_name": "BeIN Sports 1 [BE]",
-    "content_id": "bba1905fcd1c4975aec544047bf8e4cd23ce3fe0",
-    "pid": 43325
+    "hash": "bba1905fcd1c4975aec544047bf8e4cd23ce3fe0"
   },
   {
-    "query": "Bein Sports",
     "name": "BeIN Sports 2 [BE]",
-    "translated_name": "BeIN Sports 2 [BE]",
-    "content_id": "edb507e38394d614c9ff55805c9d354ae13210bc",
-    "pid": 18971
+    "hash": "edb507e38394d614c9ff55805c9d354ae13210bc"
   },
   {
-    "query": "Bein Sports",
     "name": "BeIN Sports 3 [BE]",
-    "translated_name": "BeIN Sports 3 [BE]",
-    "content_id": "731bd3336ec0986ff9100efe40dbaf1473a22cf8",
-    "pid": 49098
+    "hash": "731bd3336ec0986ff9100efe40dbaf1473a22cf8"
   },
   {
-    "query": "Bein Sports",
     "name": "beIN SPORTS HABER [TR]",
-    "translated_name": "beIN SPORTS HABER [TR]",
-    "content_id": "47c1b3a68d03bd190fed521d144ad08fa0f195f3",
-    "pid": 35555
+    "hash": "47c1b3a68d03bd190fed521d144ad08fa0f195f3"
   },
   {
-    "query": "Bein Sports",
     "name": "beIN SPORTS HD 1 [TR]",
-    "translated_name": "beIN SPORTS HD 1 [TR]",
-    "content_id": "118416583faa3fb4f03800173429b6b844b43a52",
-    "pid": 24280
+    "hash": "118416583faa3fb4f03800173429b6b844b43a52"
   },
   {
-    "query": "Bein Sports",
     "name": "beIN SPORTS HD 2 [TR]",
-    "translated_name": "beIN SPORTS HD 2 [TR]",
-    "content_id": "48bee10b883f17c7186d60f1e8022dca0ba41a05",
-    "pid": 2813
+    "hash": "48bee10b883f17c7186d60f1e8022dca0ba41a05"
   },
   {
-    "query": "Bein Sports",
     "name": "beIN SPORTS HD 3 [TR]",
-    "translated_name": "beIN SPORTS HD 3 [TR]",
-    "content_id": "ed81c333815247536edfcdb2755147e8c4144d62",
-    "pid": 12635
+    "hash": "ed81c333815247536edfcdb2755147e8c4144d62"
   },
   {
-    "query": "Bein Sports",
     "name": "beIN SPORTS HD 4 [TR]",
-    "translated_name": "beIN SPORTS HD 4 [TR]",
-    "content_id": "7683cd0cbacf55fa8b39c363219ffba1bc47cf9d",
-    "pid": 30497
+    "hash": "7683cd0cbacf55fa8b39c363219ffba1bc47cf9d"
   },
   {
-    "query": "Bein Sports",
     "name": "beIN SPORTS XTRA",
-    "translated_name": "beIN SPORTS XTRA",
-    "content_id": "e8e459656f964f601ad4bcda8b81a43ba41c68f9",
-    "pid": 3833
+    "hash": "e8e459656f964f601ad4bcda8b81a43ba41c68f9"
   },
   {
-    "query": "Bein Sports",
     "name": "TR: beIN Sports 2 FHD --> NEW ERA",
-    "translated_name": "TR: beIN Sports 2 FHD --> NEW ERA",
-    "content_id": "690f0f15439c773017ace3b6979c6e518d865454",
-    "pid": 24503
+    "hash": "690f0f15439c773017ace3b6979c6e518d865454"
   },
   {
-    "query": "Sky Sports",
     "name": "Sky Sports Arena [UK]",
-    "translated_name": "Sky Sports Arena [UK]",
-    "content_id": "d317a003e8047da2c36a2a2bb2289578c9a3b79c",
-    "pid": 32048
+    "hash": "d317a003e8047da2c36a2a2bb2289578c9a3b79c"
   },
   {
-    "query": "Sky Sports",
     "name": "Sky Sports Cricket [UK]",
-    "translated_name": "Sky Sports Cricket [UK]",
-    "content_id": "6d95e4b0893e155cc674b84e0763150c445d3ddd",
-    "pid": 21545
+    "hash": "6d95e4b0893e155cc674b84e0763150c445d3ddd"
   },
   {
-    "query": "Sky Sports",
     "name": "Sky Sports Football [UK]",
-    "translated_name": "Sky Sports Football [UK]",
-    "content_id": "8dbe2d515e9131fa311353537736f8c94be9b26d",
-    "pid": 36331
+    "hash": "8dbe2d515e9131fa311353537736f8c94be9b26d"
   },
   {
-    "query": "Sky Sports",
     "name": "Sky Sports Main Event [UK]",
-    "translated_name": "Sky Sports Main Event [UK]",
-    "content_id": "eab7aeef0218ce8b0752e596e4792b69eda4df5e",
-    "pid": 31139
+    "hash": "eab7aeef0218ce8b0752e596e4792b69eda4df5e"
   },
   {
-    "query": "NBA",
     "name": "NBA TV --> NEW ERA",
-    "translated_name": "NBA TV --> NEW ERA",
-    "content_id": "b0f64a40f333ef5cc02c2b6d4a8c3f4b73dd8073",
-    "pid": 22521
+    "hash": "b0f64a40f333ef5cc02c2b6d4a8c3f4b73dd8073"
   },
   {
-    "query": "NBA",
     "name": "NBA TV [US]",
-    "translated_name": "NBA TV [US]",
-    "content_id": "e72d03fb9694164317260f684470be9ab781ed95",
-    "pid": 38156
+    "hash": "e72d03fb9694164317260f684470be9ab781ed95"
   },
   {
-    "query": "NBA",
     "name": "OF-TV Offenbach",
-    "translated_name": "OF-TV Offenbach",
-    "content_id": "d1dc020589af45a2eba9f620a3af31caaeac47a1",
-    "pid": 30740
+    "hash": "d1dc020589af45a2eba9f620a3af31caaeac47a1"
   },
   {
-    "query": "NBA",
     "name": "OF-TV Offenbach (720p)",
-    "translated_name": "OF-TV Offenbach (720p)",
-    "content_id": "9fcc0140847b1505f00b20c6b16b8205a3dbd8b2",
-    "pid": 31476
+    "hash": "9fcc0140847b1505f00b20c6b16b8205a3dbd8b2"
   },
   {
-    "query": "Football",
-    "name": "Sky Sports Football [UK]",
-    "translated_name": "Sky Sports Football [UK]",
-    "content_id": "8dbe2d515e9131fa311353537736f8c94be9b26d",
-    "pid": 10626
-  },
-  {
-    "query": "Football",
     "name": "Матч! Футбол 1 ( original ) [RU]",
-    "translated_name": "Match! Football 1 ( original ) [RU]",
-    "content_id": "b28db77c5084da7993395d77df96c30bb134f0a9",
-    "pid": 6105
+    "hash": "b28db77c5084da7993395d77df96c30bb134f0a9"
   },
   {
-    "query": "Football",
-    "name": "Матч! Футбол 2 ( original ) [RU]",
-    "translated_name": "Match! Football 2 ( original ) [RU]",
-    "content_id": "ffbf8c687c788d9a1a7c651e24802ee773ff3f04",
-    "pid": 29692
-  },
-  {
-    "query": "Football",
     "name": "Матч! Футбол 3 ( original ) [RU]",
-    "translated_name": "Match! Football 3 ( original ) [RU]",
-    "content_id": "b6baa046075d82da300fc1b16de96067a8b9540e",
-    "pid": 31310
+    "hash": "b6baa046075d82da300fc1b16de96067a8b9540e"
   },
   {
-    "query": "Football",
     "name": "Футбол HD [RU]",
-    "translated_name": "Football HD [RU]",
-    "content_id": "fce354f24fe26ca527e2c38b14eb7b0c81f756dd",
-    "pid": 5531
+    "hash": "fce354f24fe26ca527e2c38b14eb7b0c81f756dd"
   }
 ]
