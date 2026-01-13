@@ -1,1 +1,18 @@
-[]
+{
+  "generated_at": "2026-01-13T00:09:37.045119Z",
+  "total": 3,
+  "channels": [
+    {
+      "name": "TEST ESPN",
+      "url": "acestream://123"
+    },
+    {
+      "name": "TEST DAZN",
+      "url": "acestream://456"
+    },
+    {
+      "name": "TEST TNT",
+      "url": "acestream://789"
+    }
+  ]
+}
