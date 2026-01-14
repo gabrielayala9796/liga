@@ -1,9 +1,6 @@
 name: Update Channels
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 */6 * * *"   # cada 6 horas (ajústalo luego)
+
 
 jobs:
   update:
